@@ -1,30 +1,25 @@
 <script setup lang="ts"></script>
 
 <template>
-  <!-- <form class="editor">
-    <textarea class="editor__textField"/>
-  </form> -->
-
   <div
     class="editor__textField"
     contenteditable
+    autofocus
   />
 </template>
 
 <style lang="scss">
-  // #58bae7
-  
-  @font-face {
-    font-family: Writer;
-    src: url(/font/writer-regular.ttf) format("truetype");
-    font-display: block;
-  }
-
   * {
     box-sizing: border-box;
   }
 
   body {
+    @font-face {
+      font-family: Writer;
+      src: url(/font/writer-regular.ttf) format("truetype");
+      font-display: block;
+    }
+
     background-color: #F7F7F7;
     font-family: Writer;
     padding: 0;
