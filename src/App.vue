@@ -5,7 +5,10 @@
     <textarea class="editor__textField"/>
   </form> -->
 
-  <div class="editor__textField" contenteditable />
+  <div
+    class="editor__textField"
+    contenteditable
+  />
 </template>
 
 <style lang="scss">
