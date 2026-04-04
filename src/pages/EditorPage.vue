@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { useTemplateRef, onMounted } from 'vue'
 
+// the first argument must match the ref value in the template
+const textField = useTemplateRef('textField')
+
+onMounted(() => {
+  if (textField.value) textField.value.focus()
+})
 </script>
 
 <template>
   <div
+    ref="textField"
     class="textField"
     contenteditable
     autofocus
