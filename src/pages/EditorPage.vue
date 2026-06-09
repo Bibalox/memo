@@ -50,7 +50,7 @@ onMounted(() => {
     border: none;
     border-radius: 0;
     caret-color: var(--foreground-accent-base);
-    color: var(--foreground-neutral-primary-base);
+    color: var(--foreground-neutral-base);
     margin: 0;
     max-width: 800px;
     outline: none;
