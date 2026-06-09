@@ -1,0 +1,32 @@
+$ra: "radius";
+$ss: "spacing-static";
+$sr: "spacing-responsive";
+$st: "stroke";
+
+:root {
+    --breakpoint: 900px;
+
+    --radius-s: 2px;
+    --radius-m: 4px;
+    --radius-l: 8px;
+
+    --spacing-static-xxs: 2px;
+    --spacing-static-xs: 4px;
+    --spacing-static-s: 8px;
+    --spacing-static-m: 12px;
+    --spacing-static-l: 16px;
+    --spacing-static-xl: 20px;
+    --spacing-static-xxl: 24px;
+
+    --spacing-responsive-m: 16px;
+    --spacing-responsive-l: 64px;
+
+    @media (max-width: var(--breakpoint)) {
+        --spacing-responsive-m: 32px;
+        --spacing-responsive-l: 104px;
+    }
+
+    --stroke-width: 2px;
+}
+
+
