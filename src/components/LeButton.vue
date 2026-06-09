@@ -15,6 +15,7 @@
       `le-button--${type}`,
       'label'
     ]"
+    tabindex="0"
   >
     <svg
       v-if="type === 'icon' || type === 'both'"
@@ -50,6 +51,12 @@
     &__icon {
       height: 24px;
       width: 24px;
+    }
+
+    &__label {
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     &--icon {

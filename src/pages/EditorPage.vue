@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useTemplateRef, onMounted } from 'vue'
   import LeButton from '@components/LeButton.vue'
+  import LeAccordionHeader from '@components/LeAccordionHeader.vue'
 
   const textField = useTemplateRef('textField')
 
@@ -35,6 +36,10 @@
     class="textField body"
     contenteditable="plaintext-only"
     autofocus
+  />
+  <le-accordion-header
+    label="Récits"
+    icon="chevron-up"
   />
   <div class="grid">
     <le-button
