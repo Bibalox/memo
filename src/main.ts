@@ -1,5 +1,5 @@
-import './styles/colors.scss'
-import './styles/fonts.scss'
+import './tokens/colors.scss'
+import './tokens/fonts.scss'
 
 import { createApp } from 'vue'
 import App from './App.vue'
