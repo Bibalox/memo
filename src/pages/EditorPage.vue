@@ -2,10 +2,15 @@
   import { useTemplateRef, onMounted } from 'vue'
 
   import LeButton from '@components/LeButton.vue'
-  import LeAccordionHeader from '@components/LeAccordionHeader.vue'
-  import LeAccordionItem from '@components/LeAccordionItem.vue'
+  import LeAccordion from '@components/LeAccordion.vue'
 
   const textField = useTemplateRef('textField')
+
+  const items = [
+    {id: 23, label: 'Films', date: new Date(1778335177)},
+    {id: 32, label: 'Séries', date: new Date(1652104777)},
+    {id: 44, label: 'Jeux vidéos', date: new Date(1781013577)}
+  ]
 
   onMounted(() => {
     if (textField.value) textField.value.focus()
@@ -39,14 +44,9 @@
     contenteditable="plaintext-only"
     autofocus
   />
-  <le-accordion-header
-    label="Récits"
-    icon="chevron-up"
-  />
-  
-  <le-accordion-item
-    label="Films"
-    :date="new Date(1778335177)"
+  <le-accordion
+    title="Hello world!"
+    :items="items"
   />
   <div class="grid">
     <le-button

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
 
-  import LeButton from './LeButton.vue'
+  import LeButton from '@components/LeButton.vue'
 
   const props = defineProps<{
     date: Date
@@ -58,7 +58,7 @@
     display: flex;
     gap: var(--spacing-static-s);
     height: 72px;
-    padding: 0 var(--spacing-static-xl) 0 var(--spacing-static-l);
+    padding: 0 var(--spacing-static-xl) 0 var(--spacing-static-m);
     width: 100%;
 
     &__texts {

@@ -16,6 +16,7 @@
     &__stroke {
       color: var(--foreground-neutral-weaker);
       height: var(--stroke-width);
+      margin: 0;
       width: 100%;
     }
   }
