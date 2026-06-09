@@ -10,6 +10,26 @@ onMounted(() => {
 </script>
 
 <template>
+  <svg class="logo">
+    <use href="#logo" />
+  </svg>
+  <div class="icon-grid">
+    <svg class="icon">
+      <use href="#write" />
+    </svg>
+    <svg class="icon">
+      <use href="#read" />
+    </svg>
+    <svg class="icon">
+      <use href="#chevron-down" />
+    </svg>
+    <svg class="icon">
+      <use href="#chevron-up" />
+    </svg>
+    <svg class="icon">
+      <use href="#arrow-left" />
+    </svg>
+  </div>
   <div
     ref="textField"
     class="textField body"
@@ -36,5 +56,21 @@ onMounted(() => {
     outline: none;
     resize: none;
     width: 100%;
+  }
+
+  .logo {
+    height: 400px;
+    aspect-ratio: 1;
+  }
+
+  .icon-grid {
+    display: flex;
+    gap: 24px;
+  }
+  
+  .icon {
+    fill: var(--foreground-neutral-primary-base);
+    height: 24px;
+    width: 24px;
   }
 </style>
