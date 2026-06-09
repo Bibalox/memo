@@ -23,12 +23,11 @@ onMounted(() => {
 
 <style lang="scss">
   .textField {
-    -webkit-font-smoothing: antialiased;
     background-color: transparent;
     border: none;
     border-radius: 0;
-    caret-color: #58bae7;
-    color: #1a1a1a;
+    caret-color: var(--foreground-accent-base);
+    color: var(--foreground-neutral-primary-base);
     font-size: 16px;
     line-height: 32px;
     margin: 0;

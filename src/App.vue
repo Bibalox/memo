@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+document.documentElement.setAttribute('data-theme', systemTheme)
 </script>
 
 <template>
@@ -12,14 +13,7 @@
   }
 
   body {
-    @font-face {
-      font-family: CommitMono;
-      src: url("fonts/commit-mono-regular.otf");
-      font-display: block;
-    }
-
-    background-color: #F7F7F7;
-    font-family: CommitMono;
+    background-color: var(--background-base);
     padding: 0;
     margin: 0;
   }

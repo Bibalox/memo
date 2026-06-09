@@ -1,0 +1,42 @@
+$bg: "background";
+$ol: "overlay";
+$fa: "foreground-accent";
+$fp: "foreground-neutral-primary";
+$fs: "foreground-neutral-secondary";
+
+
+[data-theme="light"] {
+	--#{$bg}-strong: #E7E9E9;
+    --#{$bg}-base: #E7ECED;
+    --#{$bg}-weak: #FFF;
+
+    --#{$ol}-base: rgba(255, 255, 255, .75);
+
+	--#{$fa}-strong: #13A1E2;
+    --#{$fa}-base: #47C0F7;
+    --#{$fa}-weak: #E1F4FC;
+
+    --#{$fp}-base: #2F2F2F;
+    --#{$fp}-weak: #B8B8B8;
+    --#{$fp}-weaker: #E3E3E3;
+
+    --#{$fs}-base: #585858;
+}
+
+[data-theme="dark"] {
+	--#{$bg}-strong: #000000;
+    --#{$bg}-base: #121212;
+    --#{$bg}-weak: #191919;
+
+    --#{$ol}-base: rgba(0, 0, 0, .75);
+
+	--#{$fa}-strong: #1993CB;
+    --#{$fa}-base: #47C0F7;
+    --#{$fa}-weak: #19333F;
+
+    --#{$fp}-base: #ECECEC;
+    --#{$fp}-weak: #4E4E4E;
+    --#{$fp}-weaker: #2B2B2B;
+
+    --#{$fs}-base: #5D5D5D;
+}
