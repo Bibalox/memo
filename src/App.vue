@@ -13,13 +13,13 @@
 
   body {
     @font-face {
-      font-family: Writer;
-      src: url(/font/writer-regular.ttf) format("truetype");
+      font-family: CommitMono;
+      src: url("fonts/commit-mono-regular.otf");
       font-display: block;
     }
 
     background-color: #F7F7F7;
-    font-family: Writer;
+    font-family: CommitMono;
     padding: 0;
     margin: 0;
   }
