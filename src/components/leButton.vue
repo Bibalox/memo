@@ -42,6 +42,8 @@ defineProps<{
   fill: var(--foreground-neutral-base);
   height: 48px;
   justify-content: center;
+  outline: var(--stroke-width) solid transparent;
+  outline-offset: var(--stroke-width);
   text-decoration: none;
   transition: all .2s ease-in-out;
 
@@ -73,7 +75,7 @@ defineProps<{
   }
 
   &:focus {
-    outline: var(--stroke-width) solid var(--foreground-accent-base);
+    outline-color: var(--foreground-accent-base);
   }
 
   &:active {

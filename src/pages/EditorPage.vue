@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef, onMounted } from 'vue'
-import leButton from '@components/leButton.vue'
+import LeButton from '@components/LeButton.vue'
 
 const textField = useTemplateRef('textField')
 
