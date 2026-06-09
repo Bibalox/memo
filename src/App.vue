@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-document.documentElement.setAttribute('data-theme', systemTheme)
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  document.documentElement.setAttribute('data-theme', systemTheme)
 </script>
 
 <template>

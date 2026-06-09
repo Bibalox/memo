@@ -1,10 +1,10 @@
 <script setup lang="ts">
-defineProps<{
-  label?: string
-  icon?: string
-  type: 'icon' | 'text' | 'both'
-  to: string
-}>()
+  defineProps<{
+    label?: string
+    icon?: string
+    type: 'icon' | 'text' | 'both'
+    to: string
+  }>()
 </script>
 
 <template>
@@ -32,54 +32,54 @@ defineProps<{
 </template>
 
 <style lang="scss">
-.le-button {
-  align-items: center;
-  background-color: var(--background-weak);
-  border: var(--stroke-width) solid transparent;
-  border-radius: var(--radius-l);
-  color: var(--foreground-neutral-base);
-  display: flex;
-  fill: var(--foreground-neutral-base);
-  height: 48px;
-  justify-content: center;
-  outline: var(--stroke-width) solid transparent;
-  outline-offset: var(--stroke-width);
-  text-decoration: none;
-  transition: all .2s ease-in-out;
+  .le-button {
+    align-items: center;
+    background-color: var(--background-weak);
+    border: var(--stroke-width) solid transparent;
+    border-radius: var(--radius-l);
+    color: var(--foreground-neutral-base);
+    display: flex;
+    fill: var(--foreground-neutral-base);
+    height: 48px;
+    justify-content: center;
+    outline: var(--stroke-width) solid transparent;
+    outline-offset: var(--stroke-width);
+    text-decoration: none;
+    transition: all .2s ease-in-out;
 
-  &__icon {
-    height: 24px;
-    width: 24px;
-  }
+    &__icon {
+      height: 24px;
+      width: 24px;
+    }
 
-  &--icon {
-    width: 48px;
-  }
+    &--icon {
+      width: 48px;
+    }
 
-  &--text {
-    border-color: var(--foreground-neutral-base);
-    padding: 0 var(--spacing-static-xl);
-  }
+    &--text {
+      border-color: var(--foreground-neutral-base);
+      padding: 0 var(--spacing-static-xl);
+    }
 
-  &--both {
-    border-color: var(--foreground-neutral-base);
-    gap: var(--spacing-static-xs);
-    padding: 0 var(--spacing-static-xl) 0 var(--spacing-static-m);
-  }
+    &--both {
+      border-color: var(--foreground-neutral-base);
+      gap: var(--spacing-static-xs);
+      padding: 0 var(--spacing-static-xl) 0 var(--spacing-static-m);
+    }
 
-  &:hover {
-    background-color: var(--foreground-accent-weak);
-    border-color: var(--foreground-accent-strong);
-    color: var(--foreground-accent-strong);
-    fill: var(--foreground-accent-strong);
-  }
+    &:hover {
+      background-color: var(--foreground-accent-weak);
+      border-color: var(--foreground-accent-strong);
+      color: var(--foreground-accent-strong);
+      fill: var(--foreground-accent-strong);
+    }
 
-  &:focus {
-    outline-color: var(--foreground-accent-base);
-  }
+    &:focus {
+      outline-color: var(--foreground-accent-base);
+    }
 
-  &:active {
-    outline: none;
+    &:active {
+      outline: none;
+    }
   }
-}
 </style>

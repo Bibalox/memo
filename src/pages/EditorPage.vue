@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useTemplateRef, onMounted } from 'vue'
-import LeButton from '@components/LeButton.vue'
+  import { useTemplateRef, onMounted } from 'vue'
+  import LeButton from '@components/LeButton.vue'
 
-const textField = useTemplateRef('textField')
+  const textField = useTemplateRef('textField')
 
-onMounted(() => {
-  if (textField.value) textField.value.focus()
-})
+  onMounted(() => {
+    if (textField.value) textField.value.focus()
+  })
 </script>
 
 <template>
