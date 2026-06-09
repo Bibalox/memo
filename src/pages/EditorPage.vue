@@ -12,11 +12,14 @@ onMounted(() => {
 <template>
   <div
     ref="textField"
-    class="textField"
+    class="textField body"
     contenteditable="plaintext-only"
     autofocus
   />
-  <router-link :to="{ name: 'home' }">
+  <router-link
+    :to="{ name: 'home' }"
+    class="label"
+  >
     Go back Home
   </router-link>
 </template>
@@ -28,8 +31,6 @@ onMounted(() => {
     border-radius: 0;
     caret-color: var(--foreground-accent-base);
     color: var(--foreground-neutral-primary-base);
-    font-size: 16px;
-    line-height: 32px;
     margin: 0;
     max-width: 800px;
     outline: none;

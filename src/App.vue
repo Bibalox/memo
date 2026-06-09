@@ -4,7 +4,7 @@ document.documentElement.setAttribute('data-theme', systemTheme)
 </script>
 
 <template>
-  <router-view />
+  <router-view class="label" />
 </template>
 
 <style lang="scss">
