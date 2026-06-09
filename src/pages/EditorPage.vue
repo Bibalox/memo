@@ -13,7 +13,7 @@ onMounted(() => {
   <div
     ref="textField"
     class="textField"
-    contenteditable
+    contenteditable="plaintext-only"
     autofocus
   />
   <router-link :to="{ name: 'home' }">

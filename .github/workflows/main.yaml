@@ -24,4 +24,4 @@ jobs:
         FTP_USERNAME: ${{ secrets.ftp_username }}
         FTP_PASSWORD: ${{ secrets.ftp_password }}
         LOCAL_DIR: dist/
-        REMOTE_DIR: notebook/
+        REMOTE_DIR: memo/
