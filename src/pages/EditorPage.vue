@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTemplateRef, onMounted } from 'vue'
+import leButton from '@components/leButton.vue'
 
-// the first argument must match the ref value in the template
 const textField = useTemplateRef('textField')
 
 onMounted(() => {
@@ -36,12 +36,10 @@ onMounted(() => {
     contenteditable="plaintext-only"
     autofocus
   />
-  <router-link
-    :to="{ name: 'home' }"
-    class="label"
-  >
-    Go back Home
-  </router-link>
+  <le-button
+    to="home"
+    label="retour"
+  />
 </template>
 
 <style lang="scss">
