@@ -69,7 +69,7 @@ onMounted(() => {
   }
   
   .icon {
-    fill: var(--foreground-neutral-primary-base);
+    fill: var(--foreground-neutral-base);
     height: 24px;
     width: 24px;
   }

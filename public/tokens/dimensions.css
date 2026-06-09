@@ -1,8 +1,3 @@
-$ra: "radius";
-$ss: "spacing-static";
-$sr: "spacing-responsive";
-$st: "stroke";
-
 :root {
     --breakpoint: 900px;
 
