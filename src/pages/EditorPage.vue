@@ -1,7 +1,9 @@
 <script setup lang="ts">
   import { useTemplateRef, onMounted } from 'vue'
+
   import LeButton from '@components/LeButton.vue'
   import LeAccordionHeader from '@components/LeAccordionHeader.vue'
+  import LeAccordionItem from '@components/LeAccordionItem.vue'
 
   const textField = useTemplateRef('textField')
 
@@ -40,6 +42,11 @@
   <le-accordion-header
     label="Récits"
     icon="chevron-up"
+  />
+  
+  <le-accordion-item
+    label="Films"
+    :date="new Date(1778335177)"
   />
   <div class="grid">
     <le-button
