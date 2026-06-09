@@ -1,0 +1,83 @@
+<script setup lang="ts">
+defineProps<{
+  label?: string
+  icon?: string
+  type: 'icon' | 'text' | 'both'
+  to: string
+}>()
+</script>
+
+<template>
+  <router-link
+    :to="{ name: to }"
+    :class="[
+      'le-button',
+      `le-button--${type}`,
+      'label'
+    ]"
+  >
+    <svg
+      v-if="type === 'icon' || type === 'both'"
+      class="le-button__icon"
+    >
+      <use :href="`#${icon}`" />
+    </svg>
+    <span
+      v-if="type === 'text' || type === 'both'"
+      class="le-button__label"
+    >
+      {{ label }}
+    </span>
+  </router-link>
+</template>
+
+<style lang="scss">
+.le-button {
+  align-items: center;
+  background-color: var(--background-weak);
+  border: var(--stroke-width) solid transparent;
+  border-radius: var(--radius-l);
+  color: var(--foreground-neutral-base);
+  display: flex;
+  fill: var(--foreground-neutral-base);
+  height: 48px;
+  justify-content: center;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+  }
+
+  &--icon {
+    width: 48px;
+  }
+
+  &--text {
+    border-color: var(--foreground-neutral-base);
+    padding: 0 var(--spacing-static-xl);
+  }
+
+  &--both {
+    border-color: var(--foreground-neutral-base);
+    gap: var(--spacing-static-xs);
+    padding: 0 var(--spacing-static-xl) 0 var(--spacing-static-m);
+  }
+
+  &:hover {
+    background-color: var(--foreground-accent-weak);
+    border-color: var(--foreground-accent-strong);
+    color: var(--foreground-accent-strong);
+    fill: var(--foreground-accent-strong);
+  }
+
+  &:focus {
+    outline: var(--stroke-width) solid var(--foreground-accent-base);
+  }
+
+  &:active {
+    outline: none;
+  }
+}
+</style>

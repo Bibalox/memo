@@ -27,9 +27,9 @@
 }
 
 :root {
-    font-family: CommitMono;
-    font-feature-settings: "cv01" 1, "cv02" 1, "cv06" 1, "cv07" 1, "cv10" 1, "cv11" 1;
-    font-size: 10px;
+  font-family: CommitMono;
+  font-feature-settings: "cv01" 1, "cv02" 1, "cv06" 1, "cv07" 1, "cv10" 1, "cv11" 1;
+  font-size: 10px;
 }
 
 .title {

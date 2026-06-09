@@ -13,7 +13,7 @@ onMounted(() => {
   <svg class="logo">
     <use href="#logo" />
   </svg>
-  <div class="icon-grid">
+  <div class="grid">
     <svg class="icon">
       <use href="#write" />
     </svg>
@@ -36,10 +36,24 @@ onMounted(() => {
     contenteditable="plaintext-only"
     autofocus
   />
-  <le-button
-    to="home"
-    label="retour"
-  />
+  <div class="grid">
+    <le-button
+      type="text"
+      to="home"
+      label="retour"
+    />
+    <le-button
+      type="icon"
+      to="home"
+      icon="write"
+    />
+    <le-button
+      type="both"
+      to="home"
+      label="retour"
+      icon="arrow-left"
+    />
+  </div>
 </template>
 
 <style lang="scss">
@@ -61,7 +75,7 @@ onMounted(() => {
     aspect-ratio: 1;
   }
 
-  .icon-grid {
+  .grid {
     display: flex;
     gap: 24px;
   }
