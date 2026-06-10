@@ -10,11 +10,8 @@
 <template>
   <router-link
     :to="{ name: to }"
-    :class="[
-      'le-button',
-      `le-button--${type}`,
-      'label'
-    ]"
+    class="le-button label"
+    :class="`le-button--${type}`"
     tabindex="0"
   >
     <svg
@@ -46,7 +43,7 @@
     outline: var(--stroke-width) solid transparent;
     outline-offset: var(--stroke-width);
     text-decoration: none;
-    transition: all .2s ease-in-out;
+    transition: all 200ms ease-in-out;
 
     &__icon {
       height: 24px;

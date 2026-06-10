@@ -23,7 +23,6 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    justify-content: center;
     min-height: 100vh;
     padding: 16px;
     width: 100vw;

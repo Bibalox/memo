@@ -28,9 +28,7 @@
 </script>
 
 <template>
-  <div
-    class="le-accordion-item"
-  >
+  <div class="le-accordion-item">
     <div class="le-accordion-item__texts">
       <span class="le-accordion-item__date subheadline">
         {{ relativeTime }}
