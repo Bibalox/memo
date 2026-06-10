@@ -1,20 +1,25 @@
 <script setup lang="ts">
-  defineProps<{
+  const props = defineProps<{
     label: string
-    icon: string
+    open?: boolean
   }>()
+
 </script>
 
 <template>
   <button
     class="le-accordion-header"
+    :class="{ 'le-accordion-header--open': props.open}"
     tabindex="0"
   >
     <span class="le-accordion-header__label label">
       {{ label }}
     </span>
-    <svg class="le-accordion-header__icon">
-      <use :href="`#${icon}`" />
+    <svg
+      class="le-accordion-header__icon"
+      :class="{ 'le-accordion-header__icon--rotated': props.open }"
+    >
+      <use href="#chevron" />
     </svg>
   </button>
 </template>
@@ -35,12 +40,17 @@
     outline: none;
     overflow: hidden;
     padding: 0 var(--spacing-static-m) 0 var(--spacing-static-l);
-    transition: all .2s ease-in-out;
+    transition: all 200ms ease-in-out;
     width: 100%;
 
     &__icon {
       height: 24px;
+      transition: transform 200ms ease-in-out;
       width: 24px;
+
+      &--rotated {
+        transform: rotate(-180deg);
+      }
     }
 
     &__label {
@@ -52,11 +62,18 @@
       user-select: none;
     }
 
-    &:hover, &:focus {
+    &--open {
+      border-radius: var(--radius-m) var(--radius-m) 0 0;
+    }
+
+    &:hover {
       background-color: var(--foreground-accent-weak);
-      border-color: var(--foreground-accent-strong);
       color: var(--foreground-accent-strong);
       fill: var(--foreground-accent-strong);
+    }
+
+    &:focus-visible {
+      border-color: var(--foreground-accent-strong);
     }
   }
 </style>

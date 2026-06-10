@@ -29,10 +29,7 @@
       <use href="#read" />
     </svg>
     <svg class="icon">
-      <use href="#chevron-down" />
-    </svg>
-    <svg class="icon">
-      <use href="#chevron-up" />
+      <use href="#chevron" />
     </svg>
     <svg class="icon">
       <use href="#arrow-left" />
