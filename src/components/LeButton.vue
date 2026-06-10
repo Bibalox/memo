@@ -78,12 +78,8 @@
       fill: var(--foreground-accent-strong);
     }
 
-    &:focus {
+    &:focus-visible {
       outline-color: var(--foreground-accent-base);
-    }
-
-    &:active {
-      outline: none;
     }
   }
 </style>
