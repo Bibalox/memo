@@ -42,6 +42,7 @@
     padding: 0 var(--spacing-static-m) 0 var(--spacing-static-l);
     transition: all 200ms ease-in-out;
     width: 100%;
+    -webkit-tap-highlight-color: transparent;
 
     &__icon {
       height: 24px;
@@ -66,10 +67,18 @@
       border-radius: var(--radius-m) var(--radius-m) 0 0;
     }
 
-    &:hover {
-      background-color: var(--foreground-accent-weak);
-      color: var(--foreground-accent-strong);
-      fill: var(--foreground-accent-strong);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--foreground-accent-weak);
+        color: var(--foreground-accent-strong);
+        fill: var(--foreground-accent-strong);
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        transform: translateY(1px);
+      }
     }
 
     &:focus-visible {

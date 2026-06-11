@@ -42,7 +42,12 @@
     autofocus
   />
   <le-accordion
-    title="Hello world!"
+    title="Favoris"
+    :items="items"
+    open
+  />
+  <le-accordion
+    title="Listes"
     :items="items"
   />
   <div class="grid">

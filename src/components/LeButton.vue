@@ -33,7 +33,7 @@
   .le-button {
     align-items: center;
     background-color: var(--background-weak);
-    border: var(--stroke-width) solid transparent;
+    border-color: transparent;
     border-radius: var(--radius-l);
     color: var(--foreground-neutral-base);
     display: flex;
@@ -44,6 +44,7 @@
     outline-offset: var(--stroke-width);
     text-decoration: none;
     transition: all 200ms ease-in-out;
+    -webkit-tap-highlight-color: transparent;
 
     &__icon {
       height: 24px;
@@ -57,25 +58,36 @@
     }
 
     &--icon {
+      outline-offset: 0;
       width: 48px;
     }
 
     &--text {
-      border-color: var(--foreground-neutral-base);
+      border: var(--stroke-width) solid var(--foreground-neutral-base);
       padding: 0 var(--spacing-static-xl);
     }
 
     &--both {
-      border-color: var(--foreground-neutral-base);
+      border: var(--stroke-width) solid var(--foreground-neutral-base);
       gap: var(--spacing-static-xs);
       padding: 0 var(--spacing-static-xl) 0 var(--spacing-static-m);
     }
 
-    &:hover {
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--foreground-accent-weak);
+        border-color: var(--foreground-accent-strong);
+        color: var(--foreground-accent-strong);
+        fill: var(--foreground-accent-strong);
+      }
+    }
+
+    &:active {
       background-color: var(--foreground-accent-weak);
       border-color: var(--foreground-accent-strong);
       color: var(--foreground-accent-strong);
       fill: var(--foreground-accent-strong);
+      transform: translateY(2px);
     }
 
     &:focus-visible {

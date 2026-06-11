@@ -46,6 +46,7 @@
 
 <style lang="scss">
   .le-accordion {
+    background-color: var(--background-weak);
     border: var(--stroke-width) solid var(--foreground-neutral-alternative-base);
     border-radius: var(--radius-l);
     display: flex;
@@ -60,10 +61,12 @@
     &__body {
         display: grid; 
         grid-template-rows: 0fr;
-        transition: grid-template-rows 250ms ease;
+        transition: visibility 250ms ease, grid-template-rows 250ms ease;
+        visibility: hidden;
 
       &--open {
         grid-template-rows: 1fr;
+        visibility: visible;
       }
     }
 
