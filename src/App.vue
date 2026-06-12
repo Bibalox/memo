@@ -4,12 +4,21 @@
 </script>
 
 <template>
-  <router-view class="label" />
+  <router-view />
 </template>
 
 <style lang="scss">
   * {
     box-sizing: border-box;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variant-alternates: inherit;
   }
 
   body {
