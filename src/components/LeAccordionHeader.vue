@@ -8,17 +8,14 @@
 
 <template>
   <button
-    class="le-accordion-header"
-    :class="{ 'le-accordion-header--open': props.open}"
+    :class="['le-accordion-header', { 'le-accordion-header--open': props.open}]"
     tabindex="0"
   >
-    <span class="le-accordion-header__label label">
-      {{ label }}
-    </span>
-    <svg
-      class="le-accordion-header__icon"
-      :class="{ 'le-accordion-header__icon--rotated': props.open }"
-    >
+    <span
+      class="le-accordion-header__label label"
+      v-text="label"
+    />
+    <svg :class="['le-accordion-header__icon', { 'le-accordion-header__icon--rotated': props.open }]">
       <use href="#chevron" />
     </svg>
   </button>

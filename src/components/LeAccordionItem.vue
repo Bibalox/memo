@@ -30,12 +30,14 @@
 <template>
   <div class="le-accordion-item">
     <div class="le-accordion-item__texts">
-      <span class="le-accordion-item__date subheadline">
-        {{ relativeTime }}
-      </span>
-      <span class="le-accordion-item__label headline">
-        {{ label }}
-      </span>
+      <span
+        class="le-accordion-item__date subheadline"
+        v-text="relativeTime"
+      />
+      <span
+        class="le-accordion-item__label headline"
+        v-text="label"
+      />
     </div>
     <le-button
       type="icon"

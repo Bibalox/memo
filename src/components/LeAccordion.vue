@@ -24,10 +24,7 @@
         @click="() => open = !open"
       />
     </header>
-    <div
-      class="le-accordion__body"
-      :class="{ 'le-accordion__body--open': open}"
-    >
+    <div :class="['le-accordion__body', { 'le-accordion__body--open': open }]">
       <div class="le-accordion__body-inner">
         <template
           v-for="(item, index) in items"

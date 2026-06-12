@@ -10,8 +10,7 @@
 <template>
   <router-link
     :to="{ name: to }"
-    class="le-button label"
-    :class="`le-button--${type}`"
+    :class="['le-button label', `le-button--${type}`]"
     tabindex="0"
   >
     <svg
@@ -23,9 +22,8 @@
     <span
       v-if="type === 'text' || type === 'both'"
       class="le-button__label"
-    >
-      {{ label }}
-    </span>
+      v-text="label"
+    />
   </router-link>
 </template>
 
