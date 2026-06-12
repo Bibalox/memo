@@ -39,13 +39,15 @@
       <le-input
         id="userInput"
         v-model="toto"
-        type="text"
+        type="email"
+        autocomplete="username"
         label="Identifiant"
       />
       <le-divider />
       <le-input
         id="passwordInput"
         type="password"
+        autocomplete="current-password"
         label="Mot de passe"
       />
     </form>
