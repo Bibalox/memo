@@ -5,7 +5,7 @@
   import LeButton from '@components/LeButton.vue'
   import LeDivider from '@components/LeDivider.vue'
   import LeInput from '@components/LeInput.vue'
-  import LeSegment from '@components/LeSegment.vue'
+  import LeSegmentedControl from '@components/LeSegmentedControl.vue'
 
   const items = [
     {id: 23, label: 'Films', date: new Date(1778335177)},
@@ -36,13 +36,7 @@
       </svg>
     </div>
 
-    <div class="grid">
-      <le-segment
-        icon="write"
-        selected
-      />
-      <le-segment icon="read" />
-    </div>
+    <le-segmented-control />
 
     <form class="form">
       <le-input
