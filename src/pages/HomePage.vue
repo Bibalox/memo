@@ -3,8 +3,9 @@
 
   import LeAccordion from '@components/LeAccordion.vue'
   import LeButton from '@components/LeButton.vue'
-  import LeInput from '@components/LeInput.vue'
   import LeDivider from '@components/LeDivider.vue'
+  import LeInput from '@components/LeInput.vue'
+  import LeSegment from '@components/LeSegment.vue'
 
   const items = [
     {id: 23, label: 'Films', date: new Date(1778335177)},
@@ -33,6 +34,14 @@
       <svg class="icon">
         <use href="#arrow-left" />
       </svg>
+    </div>
+
+    <div class="grid">
+      <le-segment
+        icon="write"
+        selected
+      />
+      <le-segment icon="read" />
     </div>
 
     <form class="form">
