@@ -22,7 +22,7 @@
     border-radius: var(--radius-s);
     display: flex;
     fill: var(--foreground-neutral-base);
-    height: 40px;
+    height: 36px;
     justify-content: center;
     outline: none;
     transition: all 200ms ease-in-out;

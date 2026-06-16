@@ -43,7 +43,7 @@
     &__selection-ring {
       border: var(--stroke-width) solid var(--foreground-accent-base);
       border-radius: var(--radius-m);
-      height: calc(40px + var(--stroke-width) * 2);
+      height: calc(36px + var(--stroke-width) * 2);
       position: absolute;
       transition: transform 200ms ease;
       width: calc(64px + var(--stroke-width) * 2);
