@@ -2,11 +2,12 @@
   defineProps<{
     icon: string
     selected: boolean
+    position: 'first' | 'last'
   }>()
 </script>
 
 <template>
-  <button :class="['le-segment', { 'le-segment--selected': selected }]">
+  <button :class="['le-segment', `le-segment--${position}`, {'le-segment--selected': selected}]">
     <svg class="le-segment__icon">
       <use :href="`#${icon}`" />
     </svg>
@@ -18,7 +19,7 @@
     align-items: center;
     background-color: transparent;
     border: var(--stroke-width) solid transparent;
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-s);
     display: flex;
     fill: var(--foreground-neutral-base);
     height: 40px;
@@ -45,12 +46,6 @@
         fill: var(--foreground-accent-strong);
       }
     }
-
-    // &:active {
-    //   background-color: var(--foreground-accent-weak);
-    //   fill: var(--foreground-accent-strong);
-    //   transform: translateY(2px);
-    // }
 
     &:focus-visible {
       border-color: var(--foreground-accent-base);
