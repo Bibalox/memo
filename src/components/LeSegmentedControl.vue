@@ -29,6 +29,7 @@
 
 <style lang="scss">
   .le-segmented-control {
+    background-color: var(--background-weak);
     border: var(--stroke-width) solid var(--foreground-neutral-alternative-base);
     border-radius: var(--radius-l);
     display: flex;
