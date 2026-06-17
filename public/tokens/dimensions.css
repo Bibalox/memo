@@ -16,12 +16,10 @@
     --spacing-responsive-m: 16px;
     --spacing-responsive-l: 64px;
 
-    @media (max-width: var(--breakpoint)) {
+    @media (min-width: 900px) {
         --spacing-responsive-m: 32px;
         --spacing-responsive-l: 104px;
     }
 
     --stroke-width: 2px;
 }
-
-

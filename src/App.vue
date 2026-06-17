@@ -4,7 +4,9 @@
 </script>
 
 <template>
-  <router-view />
+  <main class="app__main">
+    <router-view />
+  </main>
 </template>
 
 <style lang="scss">
@@ -22,18 +24,32 @@
   }
 
   body {
+    align-items: center;
     background-color: var(--background-base);
-    padding: 0;
+    display: flex;
+    justify-content: center;
     margin: 0;
+    overflow: hidden;
+    padding: 0 var(--spacing-responsive-m);
   }
 
   .app {
     align-items: center;
     display: flex;
-    flex-direction: column;
-    gap: 32px;
-    min-height: 100vh;
-    padding: 16px;
+    justify-content: center;
+    height: 100vh;
     width: 100vw;
+
+    &__main {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-static-l);
+      height: 100vh;
+      max-width: 640px;
+      padding: var(--spacing-responsive-m) 0;
+      position: relative;
+      width: 100%;
+    }
   }
 </style>
