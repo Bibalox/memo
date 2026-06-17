@@ -23,32 +23,30 @@
     font-variant-alternates: inherit;
   }
 
+  :root {
+    overscroll-behavior: none;
+  }
+
   body {
-    align-items: center;
     background-color: var(--background-base);
     display: flex;
-    justify-content: center;
     margin: 0;
-    overflow: hidden;
-    padding: 0 var(--spacing-responsive-m);
+    overflow-y: auto;
+    padding: 0;
   }
 
   .app {
-    align-items: center;
     display: flex;
+    min-height: 100vh;
     justify-content: center;
-    height: 100vh;
+    padding: var(--spacing-responsive-m) var(--spacing-responsive-m);
     width: 100vw;
 
     &__main {
-      align-items: center;
       display: flex;
       flex-direction: column;
       gap: var(--spacing-static-l);
-      height: 100vh;
       max-width: 640px;
-      padding: var(--spacing-responsive-m) 0;
-      position: relative;
       width: 100%;
     }
   }

@@ -16,75 +16,65 @@
 </script>
 
 <template>
-  <div class="template">
-    <svg class="logo">
-      <use href="#logo" />
+  <svg class="logo">
+    <use href="#logo" />
+  </svg>
+  <div class="grid">
+    <svg class="icon">
+      <use href="#write" />
     </svg>
-    <div class="grid">
-      <svg class="icon">
-        <use href="#write" />
-      </svg>
-      <svg class="icon">
-        <use href="#read" />
-      </svg>
-      <svg class="icon">
-        <use href="#chevron" />
-      </svg>
-      <svg class="icon">
-        <use href="#arrow-left" />
-      </svg>
-    </div>
+    <svg class="icon">
+      <use href="#read" />
+    </svg>
+    <svg class="icon">
+      <use href="#chevron" />
+    </svg>
+    <svg class="icon">
+      <use href="#arrow-left" />
+    </svg>
+  </div>
 
-    <form class="form">
-      <le-input
-        id="userInput"
-        v-model="toto"
-        type="email"
-        autocomplete="username"
-        label="Identifiant"
-      />
-      <le-divider />
-      <le-input
-        id="passwordInput"
-        type="password"
-        autocomplete="current-password"
-        label="Mot de passe"
-      />
-    </form>
-
-    <div class="grid">
-      <span v-text="toto" />
-    </div>
-
-    <le-accordion
-      title="Favoris"
-      :items="items"
-      open
+  <form class="form">
+    <le-input
+      id="userInput"
+      v-model="toto"
+      type="email"
+      autocomplete="username"
+      label="Identifiant"
     />
-    <le-accordion
-      title="Listes"
-      :items="items"
+    <le-divider />
+    <le-input
+      id="passwordInput"
+      type="password"
+      autocomplete="current-password"
+      label="Mot de passe"
     />
+  </form>
 
-    <div class="grid">
-      <le-button
-        type="text"
-        to="read-note"
-        label="Note"
-      />
-    </div>
+  <div class="grid">
+    <span v-text="toto" />
+  </div>
+
+  <le-accordion
+    title="Favoris"
+    :items="items"
+    open
+  />
+  <le-accordion
+    title="Listes"
+    :items="items"
+  />
+
+  <div class="grid">
+    <le-button
+      type="text"
+      to="write-note"
+      label="Note"
+    />
   </div>
 </template>
 
 <style lang="scss">
-  .template {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 600px;
-    width: 100%;
-  }
-
   .form {
     background-color: var(--background-weak);
     border: var(--stroke-width) solid var(--foreground-neutral-alternative-base);
@@ -93,6 +83,7 @@
     display: flex;
     flex-direction: column;
     padding: var(--spacing-static-s);
+    width: 100%;
   }
 
   .logo {
