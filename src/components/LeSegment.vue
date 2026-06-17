@@ -1,14 +1,14 @@
 <script setup lang="ts">
   defineProps<{
     selected: boolean
-    type: 'read' | 'write'
+    mode: 'write' | 'read'
   }>()
 </script>
 
 <template>
   <button :class="['le-segment', {'le-segment--selected': selected}]">
     <svg class="le-segment__icon">
-      <use :href="`#${type}`" />
+      <use :href="`#${mode}`" />
     </svg>
   </button>
 </template>

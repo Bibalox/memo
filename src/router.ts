@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@pages/HomePage.vue'
-import EditorPage from '@pages/EditorPage.vue'
+import NotePage from '@pages/NotePage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -11,9 +11,16 @@ const router = createRouter({
       component: HomePage
     },
     {
-      path: '/editor',
-      name: 'editor',
-      component: EditorPage
+      path: '/note',
+      name: 'write-note',
+      component: NotePage,
+      props: { mode: 'write' }
+    },
+    {
+      path: '/note',
+      name: 'read-note',
+      component: NotePage,
+      props: { mode: 'read' }
     },
   ],
 })

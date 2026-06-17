@@ -1,20 +1,24 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-
   import LeSegment from '@components/LeSegment.vue'
-  
-  const selectedSegment = ref<'read' | 'write'>('read')
+
+  defineProps<{
+    currentMode: 'write' | 'read' 
+  }>()
+
+  defineEmits(['clickOnSegment'])
 </script>
 
 <template>
-  <div class="le-segmented-control">
-    <div :class="['le-segmented-control__selection-ring', `le-segmented-control__selection-ring--${selectedSegment}`]" />
+  <div
+    class="le-segmented-control"
+  >
+    <div :class="['le-segmented-control__selection-ring', `le-segmented-control__selection-ring--${currentMode}`]" />
     <le-segment
-      v-for="(type, key) in ['read', 'write']"
+      v-for="(mode, key) in ['write', 'read']"
       :key="key"
-      :selected="selectedSegment === type"
-      :type="type"
-      @click="selectedSegment = type"
+      :selected="currentMode === mode"
+      :mode="mode"
+      @click="$emit('clickOnSegment', mode)"
     />
   </div>
 </template>
@@ -42,16 +46,12 @@
       left: calc(var(--spacing-static-xs) - var(--stroke-width));
 
 
-      &--read {
+      &--write {
         transform: translateX(0);
       }
 
-      &--write {
+      &--read {
         transform: translateX(calc(64px + var(--spacing-static-xs) + var(--stroke-width)));
-      }
-
-      &:active {
-        transform: scaleY(.8);
       }
     }
   }

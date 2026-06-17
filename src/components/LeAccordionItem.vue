@@ -42,12 +42,12 @@
     <le-button
       type="icon"
       icon="write"
-      to=""
+      to="write-note"
     />
     <le-button
       type="icon"
       icon="read"
-      to=""
+      to="read-note"
     />
   </div>
 </template>
