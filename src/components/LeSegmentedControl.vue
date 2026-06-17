@@ -3,28 +3,18 @@
 
   import LeSegment from '@components/LeSegment.vue'
   
-  const selectedSegment = ref<'first' | 'last'>('last')
-
-  // defineProps<{
-  //   icon: string
-  //   selected?: boolean
-  // }>()
+  const selectedSegment = ref<'read' | 'write'>('read')
 </script>
 
 <template>
   <div class="le-segmented-control">
     <div :class="['le-segmented-control__selection-ring', `le-segmented-control__selection-ring--${selectedSegment}`]" />
     <le-segment
-      icon="write"
-      :selected="selectedSegment === 'first'"
-      position="first"
-      @click="selectedSegment = 'first'"
-    />
-    <le-segment
-      icon="read"
-      :selected="selectedSegment === 'last'"
-      position="last"
-      @click="selectedSegment = 'last'"
+      v-for="(type, key) in ['read', 'write']"
+      :key="key"
+      :selected="selectedSegment === type"
+      :type="type"
+      @click="selectedSegment = type"
     />
   </div>
 </template>
@@ -45,19 +35,23 @@
       border-radius: var(--radius-m);
       height: calc(36px + var(--stroke-width) * 2);
       position: absolute;
-      transition: transform 200ms ease;
+      transition: transform 200ms 50ms ease;
       width: calc(64px + var(--stroke-width) * 2);
 
       top: calc(var(--spacing-static-xs) - var(--stroke-width));
       left: calc(var(--spacing-static-xs) - var(--stroke-width));
 
 
-      &--first {
+      &--read {
         transform: translateX(0);
       }
 
-      &--last {
+      &--write {
         transform: translateX(calc(64px + var(--spacing-static-xs) + var(--stroke-width)));
+      }
+
+      &:active {
+        transform: scaleY(.8);
       }
     }
   }
