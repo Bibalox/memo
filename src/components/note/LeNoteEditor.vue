@@ -29,14 +29,14 @@
     justify-content: center;
 
       &__field {
+        -webkit-font-smoothing: antialiased;
         background-color: transparent;
-        background-color: red;
         border: none;
         border-radius: 0;
         caret-color: var(--foreground-accent-base);
         color: var(--foreground-neutral-base);
-        margin: 0;
         field-sizing: content;
+        margin: 0;
         outline: none;
         resize: none;
         width: 100%;

@@ -8,6 +8,25 @@ app.use(router)
 app.mount('#app')
 
 
+// Prevent double-tap zoom on Safari for iOS
+
+let lastTouchEnd = 0
+
+document.addEventListener(
+  'touchend',
+  (event) => {
+    const now = Date.now()
+
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault()
+    }
+
+    lastTouchEnd = now
+  },
+  { passive: false },
+)
+
+
 // Insert the icon board into the HTML file
 
 fetch('assets/icons.svg')
@@ -26,22 +45,3 @@ fetch('assets/logo.svg')
 
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 document.documentElement.setAttribute('data-theme', systemTheme)
-
-
-// Prevent double-tap zoom on Safari for iOS
-
-let lastTouchEnd = 0
-
-document.addEventListener(
-  'touchend',
-  (event) => {
-    const now = Date.now()
-
-    if (now - lastTouchEnd <= 300) {
-      event.preventDefault()
-    }
-
-    lastTouchEnd = now
-  },
-  { passive: false },
-)
