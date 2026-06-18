@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  document.documentElement.setAttribute('data-theme', systemTheme)
+
 </script>
 
 <template>
@@ -23,23 +22,21 @@
     font-variant-alternates: inherit;
   }
 
-  :root {
-    overscroll-behavior: none;
-  }
-
   body {
     background-color: var(--background-base);
-    display: flex;
     margin: 0;
-    overflow-y: auto;
+    min-height: 100dvh;
     padding: 0;
+
+    display: flex;
+    flex-direction: column;
   }
 
   .app {
     display: flex;
-    min-height: 100vh;
+    flex: 1;
     justify-content: center;
-    padding: var(--spacing-responsive-m) var(--spacing-responsive-m);
+    padding: calc(env(safe-area-inset-top) + var(--spacing-responsive-m)) var(--spacing-responsive-m) calc(env(safe-area-inset-bottom) + var(--spacing-responsive-m));
     width: 100vw;
 
     &__main {

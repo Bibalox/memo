@@ -1,8 +1,10 @@
 <script setup lang="ts">
-  import LeSegment from '@components/LeSegment.vue'
+  import type { NoteMode } from '@types'
+
+  import LeSegment from '@components/segmented-control/LeSegment.vue'
 
   defineProps<{
-    currentMode: 'write' | 'read' 
+    currentMode: NoteMode
   }>()
 
   defineEmits(['clickOnSegment'])
@@ -38,13 +40,11 @@
       border: var(--stroke-width) solid var(--foreground-accent-base);
       border-radius: var(--radius-m);
       height: calc(36px + var(--stroke-width) * 2);
+      left: calc(var(--spacing-static-xs) - var(--stroke-width));
       position: absolute;
+      top: calc(var(--spacing-static-xs) - var(--stroke-width));
       transition: transform 200ms 50ms ease;
       width: calc(64px + var(--stroke-width) * 2);
-
-      top: calc(var(--spacing-static-xs) - var(--stroke-width));
-      left: calc(var(--spacing-static-xs) - var(--stroke-width));
-
 
       &--write {
         transform: translateX(0);

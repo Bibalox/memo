@@ -1,45 +1,24 @@
 <script setup lang="ts">
-  import { toRef, } from 'vue'
+  import { toRef } from 'vue'
+  import type { NoteMode } from '@types'
 
-  import LeButton from '@components/LeButton.vue'
-  import LeNoteEditor from '@components/LeNoteEditor.vue'
-  import LeSegmentedControl from '@components/LeSegmentedControl.vue'
+  import LeNoteToolbar from '@components/note/LeNoteToolbar.vue'
+  import LeNoteEditor from '@components/note/LeNoteEditor.vue'
 
   const props = defineProps<{
-    mode: 'write' | 'read'
+    mode: NoteMode
   }>()
 
   const mode = toRef(props.mode)
-
-
-  const switchMode = (newMode: 'write' | 'read') => mode.value = newMode
 </script>
 
 <template>
-  <div class="note-page-toolbar">
-    <le-button
-      type="both"
-      to="home"
-      label="Retour"
-      icon="arrow-left"
-    />
-    <le-segmented-control
-      :current-mode="mode"
-      @click-on-segment="(newMode) => switchMode(newMode)"
-    />
-  </div>
-
-  <le-note-editor v-if=" mode === 'write'" />
-
-  <!-- <div v-if=" mode === 'read'" /> -->
+  <le-note-toolbar
+    :mode="mode"
+    @mode-update="(newMode: NoteMode) => mode = newMode"
+  />
+  <le-note-editor />
 </template>
 
 <style lang="scss">
-  .note-page-toolbar {
-    justify-content: space-between;
-    display: flex;
-    position: sticky;
-    top: 0;
-    width: 100%;
-  }
 </style>
