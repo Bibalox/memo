@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { toRef } from 'vue'
+  import { ref, toRef } from 'vue'
   import type { NoteMode } from '@types'
 
   import LeNoteToolbar from '@components/note/LeNoteToolbar.vue'
@@ -10,6 +10,7 @@
   }>()
 
   const mode = toRef(props.mode)
+  const noteContent = ref('')
 </script>
 
 <template>
@@ -17,7 +18,10 @@
     :mode="mode"
     @mode-update="(newMode: NoteMode) => mode = newMode"
   />
-  <le-note-editor />
+  <le-note-editor
+    v-if="mode === 'write'"
+    v-model="noteContent"
+  />
 </template>
 
 <style lang="scss">
