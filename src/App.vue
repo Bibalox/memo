@@ -42,7 +42,7 @@
     &__main {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-static-xxl);
+      gap: var(--spacing-responsive-m);
       max-width: 640px;
       width: 100%;
     }
