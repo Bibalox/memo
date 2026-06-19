@@ -69,14 +69,26 @@
 
   .le-note-title {
     margin: 0 0 var(--spacing-static-s);
+
+    &:last-child {
+      margin: 0;
+    }
   }
 
   .le-note-paragraph {
     margin: 0 0 var(--spacing-static-xxl);
+
+    &:last-child {
+      margin: 0;
+    }
   }
 
   .le-note-list {
     margin: 0 0 var(--spacing-static-xxl);
+
+    &:last-child {
+      margin: 0;
+    }
   }
 
   .le-note-blockquote {
@@ -85,6 +97,10 @@
     padding-left: var(--spacing-responsive-m);
 
     &__line {
+      margin: 0;
+    }
+
+    &:last-child {
       margin: 0;
     }
   }
@@ -96,5 +112,9 @@
     padding: 0;
     margin: var(--spacing-static-xxl) 0;
     width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 </style>
