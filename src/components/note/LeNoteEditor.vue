@@ -1,18 +1,18 @@
 <script setup lang="ts">
   import { useTemplateRef, onMounted } from 'vue'
 
-  const textField = useTemplateRef('textField')
+  const field = useTemplateRef('field')
 
-  onMounted(() => { if (textField.value) textField.value.focus()})
+  onMounted(() => { if (field.value && fieldContent.value === '') field.value.focus()})
 
-  const model = defineModel<string>()
+  const fieldContent = defineModel<string>()
 </script>
 
 <template>
   <section class="le-note-editor">
     <textarea
-      ref="textField"
-      v-model="model"
+      ref="field"
+      v-model="fieldContent"
       class="le-note-editor__field body"
       contenteditable="plaintext-only"
     />
