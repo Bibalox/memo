@@ -28,8 +28,8 @@
       />
 
       <ul
-        v-if="block.type === 'list'"
-        class="le-note-viewer__list body"
+        v-if="block.type === 'unordered-list'"
+        class="le-note-viewer__list le-note-viewer__list--unordered body"
       >
         <li
           v-for="(item, itemIndex) in block.items"
@@ -37,6 +37,17 @@
           v-text="item"
         />
       </ul>
+
+      <ol
+        v-if="block.type === 'ordered-list'"
+        class="le-note-viewer__list body"
+      >
+        <li
+          v-for="(item, itemIndex) in block.items"
+          :key="itemIndex"
+          v-text="item"
+        />
+      </ol>
 
       <div
         v-if="block.type === 'blockquote'"
@@ -75,7 +86,7 @@
     }
 
     &__paragraph {
-      margin: 0 0 var(--spacing-static-xxl);
+      margin: 0 0 var(--body-line-height);
 
       &:last-child {
         margin: 0;
@@ -83,7 +94,12 @@
     }
 
     &__list {
-      margin: 0 0 var(--spacing-static-xxl);
+      margin: 0 0 var(--body-line-height);
+      
+
+      &--unordered {
+        padding: 0 0 0 var(--body-font-size);
+      }
 
       &:last-child {
         margin: 0;
@@ -92,8 +108,8 @@
 
     &__blockquote {
       border-left: var(--stroke-width) solid var(--foreground-neutral-weak);
-      margin: 0 0 var(--spacing-static-xxl);
-      padding-left: var(--spacing-responsive-m);
+      margin: 0 0 var(--body-line-height);
+      padding-left: var(--spacing-static-xxl);
 
       &__line {
         margin: 0;
@@ -109,7 +125,7 @@
       height: var(--stroke-width);
       border: none;
       padding: 0;
-      margin: var(--spacing-static-xxl) 0;
+      margin: var(--body-line-height) 0;
       width: 100%;
 
       &:last-child {

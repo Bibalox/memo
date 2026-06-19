@@ -37,7 +37,20 @@ export function parseMarkdown(markdown: string) {
         items.push(line.slice(2))
         i++
       }
-      result.push({ type: 'list', items })
+      result.push({ type: 'unordered-list', items })
+      continue
+    }
+
+    // Ordered list: consecutive lines starting with a number followed by '. '
+    if (/^\d+\. /.test(line)) {
+      const items = []
+      while (i < lines.length) {
+        const line = lines[i]
+        if (line === undefined || !/^\d+\. /.test(line)) break
+        items.push(line.replace(/^\d+\. /, ''))
+        i++
+      }
+      result.push({ type: 'ordered-list', items })
       continue
     }
 
