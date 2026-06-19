@@ -31,7 +31,10 @@
   font-size: 10px;
 }
 
-body, input, textarea, button {
+body,
+input,
+textarea,
+button {
   font-family: CommitMono;
 }
 
@@ -40,12 +43,14 @@ body, input, textarea, button {
   font-weight: bold;
   letter-spacing: 2%;
   line-height: 3.4rem;
+  -webkit-font-smoothing: antialiased;
 }
 
 .body {
   font-size: 1.8rem;
   letter-spacing: 2%;
   line-height: 3.2rem;
+  -webkit-font-smoothing: antialiased;
 }
 
 .headline {
@@ -53,6 +58,7 @@ body, input, textarea, button {
   font-weight: bold;
   letter-spacing: 2%;
   line-height: 2.4rem;
+  -webkit-font-smoothing: antialiased;
 }
 
 .subheadline {
@@ -60,6 +66,7 @@ body, input, textarea, button {
   letter-spacing: 2%;
   line-height: 1.6rem;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
 }
 
 .label {
@@ -68,4 +75,5 @@ body, input, textarea, button {
   letter-spacing: 0.7px;
   line-height: 2.4rem;
   text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
 }
