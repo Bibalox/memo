@@ -3,8 +3,8 @@
   import type { NoteMode } from '@types'
 
   import LeToolbar from '@components/LeToolbar.vue'
-  import LeNoteEditor from '@components/note/LeNoteEditor.vue'
-  import LeNoteViewer from '@components/note/LeNoteViewer.vue'
+  import LeNoteEditor from '@components/LeNoteEditor.vue'
+  import LeNoteViewer from '@components/LeNoteViewer.vue'
 
   const props = defineProps<{
     mode: NoteMode

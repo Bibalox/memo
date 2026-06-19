@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ref } from 'vue'
 
-  import LeAccordionHeader from '@components/accordion/LeAccordionHeader.vue'
-  import LeAccordionItem from '@components/accordion/LeAccordionItem.vue'
+  import LeAccordionHeader from '@components/LeAccordionHeader.vue'
+  import LeAccordionItem from '@components/LeAccordionItem.vue'
   import LeDivider from '@components/LeDivider.vue'
 
   const props = defineProps<{

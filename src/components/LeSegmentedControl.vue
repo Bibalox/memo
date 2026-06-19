@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import type { NoteMode } from '@types'
 
-  import LeSegment from '@components/segmented-control/LeSegment.vue'
+  import LeSegment from '@components/LeSegment.vue'
 
   defineProps<{
     currentMode: NoteMode
