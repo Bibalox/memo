@@ -12,7 +12,7 @@
 
   const currentMode = toRef(props.mode)
   //const noteContent = ref('')
-  const noteContent = ref('# Hello world!\n\nThis is a cool text\n\nThis is another cool text, which is waaaaaaaayyyyyy too long to be handled on a single line!\n- Topic 1\n\n- Topic 2\n- Topic 3\n- Topic 4\n***\nAnd another paragraph\n- Topic Z\n> First line\n> Second line\nAnd another paragraph\n---\nAnd another one!')
+  const noteContent = ref('# Hello world!\n\nThis is a cool text\n\nThis is another cool text, which is waaaaaaaayyyyyy too long to be handled on a single line!\n- Topic 1\n\n- Topic 2\n-\n- Topic 3\n- Topic 4\n***\nAnd another paragraph\n- Topic Z\n> First line\n> Second line\n>\n> Third line\nAnd another paragraph\n---\nAnd another one!')
 </script>
 
 <template>
