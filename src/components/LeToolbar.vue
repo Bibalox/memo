@@ -2,7 +2,7 @@
   import type { NoteMode } from '@types'
 
   import LeButton from '@components/LeButton.vue'
-  import LeSegmentedControl from '@components/segmented-control/LeSegmentedControl.vue'
+  import LeSegmentedControl from '@components/LeSegmentedControl.vue'
 
   defineProps<{
     mode: NoteMode

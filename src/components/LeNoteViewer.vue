@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { parseMarkdown } from '@utils/parse-markdown'
+  import { parseMarkdown } from '@utils'
 
   const props = defineProps<{
     content: string

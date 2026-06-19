@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
 
-  import LeAccordion from '@components/accordion/LeAccordion.vue'
+  import LeAccordion from '@components/LeAccordion.vue'
   import LeButton from '@components/LeButton.vue'
   import LeDivider from '@components/LeDivider.vue'
   import LeInput from '@components/LeInput.vue'
