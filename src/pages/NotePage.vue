@@ -4,23 +4,29 @@
 
   import LeNoteToolbar from '@components/note/LeNoteToolbar.vue'
   import LeNoteEditor from '@components/note/LeNoteEditor.vue'
+  import LeNoteViewer from '@components/note/LeNoteViewer.vue'
 
   const props = defineProps<{
     mode: NoteMode
   }>()
 
-  const mode = toRef(props.mode)
-  const noteContent = ref('')
+  const currentMode = toRef(props.mode)
+  //const noteContent = ref('')
+  const noteContent = ref('# Hello world!\n\nThis is a cool text\n\nThis is another cool text, which is waaaaaaaayyyyyy too long to be handled on a single line!\n- Topic 1\n\n- Topic 2\n- Topic 3\n- Topic 4\n***\nAnd another paragraph\n- Topic Z\n> First line\n> Second line\nAnd another paragraph\n---\nAnd another one!')
 </script>
 
 <template>
   <le-note-toolbar
-    :mode="mode"
-    @mode-update="(newMode: NoteMode) => mode = newMode"
+    :mode="currentMode"
+    @mode-update="(newMode: NoteMode) => currentMode = newMode"
   />
   <le-note-editor
-    v-if="mode === 'write'"
+    v-if="currentMode === 'write'"
     v-model="noteContent"
+  />
+  <le-note-viewer
+    v-if="currentMode === 'read'"
+    :content="noteContent"
   />
 </template>
 
