@@ -7,7 +7,7 @@
 
   const props = defineProps<{
     title: string
-    items: {id: number, label: string, date: Date}[]
+    items: { label: string, date: Date }[]
     open?: boolean
   }>()
 
