@@ -2,7 +2,7 @@
   import { ref, toRef } from 'vue'
   import type { NoteMode } from '@types'
 
-  import LeNoteToolbar from '@components/note/LeNoteToolbar.vue'
+  import LeToolbar from '@components/LeToolbar.vue'
   import LeNoteEditor from '@components/note/LeNoteEditor.vue'
   import LeNoteViewer from '@components/note/LeNoteViewer.vue'
 
@@ -16,7 +16,7 @@
 </script>
 
 <template>
-  <le-note-toolbar
+  <le-toolbar
     :mode="currentMode"
     @mode-update="(newMode: NoteMode) => currentMode = newMode"
   />

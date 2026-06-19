@@ -12,7 +12,7 @@
 </script>
 
 <template>
-  <div class="le-note-page-toolbar">
+  <div class="le-toolbar">
     <le-button
       type="both"
       to="home"
@@ -27,11 +27,18 @@
 </template>
 
 <style lang="scss">
-  .le-note-page-toolbar {
+  .le-toolbar {
+    bottom: 0;
     display: flex;
     justify-content: space-between;
-    position: sticky;
-    top: var(--spacing-responsive-m);
-    width: 100%; 
+    padding: var(--spacing-responsive-m);
+    position: fixed;
+    left: 0;
+    width: 100%;
+
+    @media (min-width: 900px) {
+      bottom: unset;
+      top: 0;
+    }
   }
 </style>

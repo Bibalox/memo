@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <main class="app__main">
+  <main class="app__main app__main--with-toolbar">
     <router-view />
   </main>
 </template>
@@ -42,9 +42,17 @@
     &__main {
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-responsive-m);
       max-width: 640px;
       width: 100%;
+
+      &--with-toolbar {
+        padding-bottom: calc(var(--spacing-responsive-m) + 48px);
+
+        @media (min-width: 900px) {
+          padding-bottom: unset;
+          padding-top: calc(var(--spacing-responsive-m) + 48px);
+        }
+      } 
     }
   }
 </style>
