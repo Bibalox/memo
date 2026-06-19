@@ -3,7 +3,7 @@
 
   const field = useTemplateRef('field')
 
-  onMounted(() => { if (field.value && fieldContent.value === '') field.value.focus()})
+  onMounted(() => { if (field.value && fieldContent.value === '') field.value.focus() })
 
   const fieldContent = defineModel<string>()
 </script>

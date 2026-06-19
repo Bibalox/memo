@@ -1,9 +1,30 @@
 <script setup lang="ts">
+  import { onMounted, watch } from 'vue'
+  import { useRoute } from 'vue-router'
 
+  const route = useRoute()
+  let mainContainer: HTMLElement | null
+  
+  onMounted(() => { mainContainer = document.querySelector('#app') })
+
+  watch(route, () => {
+    const classList = mainContainer?.classList
+    console.log(classList)
+    if (route.meta.withToolbar) {
+      classList?.add('app__main--with-toolbar')
+      console.log('toto')
+    } else {
+      classList?.remove('app__main--with-toolbar')
+      console.log('tata')
+    }
+  })
 </script>
 
 <template>
-  <main class="app__main app__main--with-toolbar">
+  <main
+    id="main"
+    class="app__main"
+  >
     <router-view />
   </main>
 </template>
@@ -42,16 +63,12 @@
     &__main {
       display: flex;
       flex-direction: column;
+      gap: var(--spacing-static-l);
       max-width: 640px;
       width: 100%;
 
       &--with-toolbar {
-        padding-bottom: calc(var(--spacing-responsive-m) + 48px);
-
-        @media (min-width: 900px) {
-          padding-bottom: unset;
-          padding-top: calc(var(--spacing-responsive-m) + 48px);
-        }
+        padding-top: calc(var(--spacing-responsive-m) * 2 + 48px);
       } 
     }
   }

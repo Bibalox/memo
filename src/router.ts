@@ -14,13 +14,15 @@ const router = createRouter({
       path: '/note',
       name: 'write-note',
       component: NotePage,
-      props: { mode: 'write' }
+      props: { mode: 'write' },
+      meta: { withToolbar: true }
     },
     {
       path: '/note',
       name: 'read-note',
       component: NotePage,
-      props: { mode: 'read' }
+      props: { mode: 'read' },
+      meta: { withToolbar: true }
     },
   ],
 })

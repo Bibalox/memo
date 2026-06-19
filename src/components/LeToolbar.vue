@@ -28,17 +28,12 @@
 
 <style lang="scss">
   .le-toolbar {
-    bottom: 0;
     display: flex;
     justify-content: space-between;
     padding: var(--spacing-responsive-m);
     position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
-
-    @media (min-width: 900px) {
-      bottom: unset;
-      top: 0;
-    }
   }
 </style>
