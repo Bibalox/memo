@@ -5,9 +5,11 @@
   import LeAccordionItem from '@components/LeAccordionItem.vue'
   import LeDivider from '@components/LeDivider.vue'
 
+  import type { Note } from '@types'
+
   const props = defineProps<{
     title: string
-    items: { label: string, date: Date }[]
+    notes: Note[]
     open?: boolean
   }>()
 
@@ -27,14 +29,14 @@
     <div :class="['le-accordion__body', { 'le-accordion__body--open': open }]">
       <div class="le-accordion__body-inner">
         <template
-          v-for="(item, index) in items"
+          v-for="(note, index) in notes"
           :key="index"
         >
           <le-accordion-item
-            :date="item.date"
-            :label="item.label"
+            :last-update="note.lastUpdate"
+            :name="note.name"
           />
-          <le-divider v-if="index + 1 < items.length" />
+          <le-divider v-if="index + 1 < notes.length" />
         </template>
       </div>
     </div>

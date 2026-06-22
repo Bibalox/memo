@@ -19,6 +19,9 @@
       "@pages/*": [
         "./src/pages/*"
       ],
+      "@store": [
+        "./src/store.ts"
+      ],
       "@types": [
         "./src/types.ts"
       ],

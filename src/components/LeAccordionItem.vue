@@ -4,26 +4,31 @@
   import LeButton from '@components/LeButton.vue'
 
   const props = defineProps<{
-    date: Date
-    label: string
+    lastUpdate?: Date
+    name: string
   }>()
 
   const relativeTime = computed(() => {
-    const duration = Date.now() / 1000 - props.date.getTime()
+    if (props.lastUpdate) {
+      const duration = Date.now() / 1000 - props.lastUpdate.getTime()
 
-    if (duration < 60) {
-      return "Il y a quelques instants"
-    } else if (duration < 3600) {
-      return `Il y a ${Math.round(duration / 60)} minute(s)`
-    } else if (duration < 86400) {
-      return `Il y a ${Math.round(duration / 3600)} heure(s)`
-    } else if (duration < 2620800) {
-      return `Il y a ${Math.round(duration / 86400)} jour(s)`
-    } else if (duration < 31449600) {
-      return `Il y a ${Math.round(duration / 2620800)} mois`
+      if (duration < 60) {
+        return "Il y a quelques instants"
+      } else if (duration < 3600) {
+        return `Il y a ${Math.round(duration / 60)} minute(s)`
+      } else if (duration < 86400) {
+        return `Il y a ${Math.round(duration / 3600)} heure(s)`
+      } else if (duration < 2620800) {
+        return `Il y a ${Math.round(duration / 86400)} jour(s)`
+      } else if (duration < 31449600) {
+        return `Il y a ${Math.round(duration / 2620800)} mois`
+      } else {
+        return `Il y a ${Math.round(duration / 31449600)} an(s)`
+      }
     } else {
-      return `Il y a ${Math.round(duration / 31449600)} an(s)`
+      return '--'
     }
+
   })
 </script>
 
@@ -36,7 +41,7 @@
       />
       <span
         class="le-accordion-item__label headline"
-        v-text="label"
+        v-text="name"
       />
     </div>
     <le-button
