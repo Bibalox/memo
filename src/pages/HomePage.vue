@@ -2,56 +2,45 @@
   import LeAccordion from '@components/LeAccordion.vue'
 
   const favoriteNotes = [
-    { label: 'Films', date: new Date(1778335177) },
-    { label: 'Séries', date: new Date(1652104777) },
-    { label: 'Pensées', date: new Date(1781013577) },
+    { label: 'Carnet', date: new Date(1778335177) },
+    { label: 'Idées repas', date: new Date(1652104777) },
+    { label: 'Journal', date: new Date(1781013577) },
+    { label: 'Musique', date: new Date(1778335177) },
+    { label: 'Séries & films', date: new Date(1652104777) },
   ]
 
   const notes = [
     {
-      name: 'Culture',
+      name: 'Notes',
       content: [
-        { label: 'Films', date: new Date(1778335177) },
-        { label: 'Jeux vidéos', date: new Date(1652104777) },
-        { label: 'Musique', date: new Date(1781013577) },
-        { label: 'Séries', date: new Date(1778335177) },
+        { label: 'Carnet', date: new Date(1778335177) },
+        { label: 'Journal', date: new Date(1652104777) },
+        { label: 'Psycho', date: new Date(1778335177) },
+        { label: 'Télécharger sur Youtube', date: new Date(1781013577) },
+        { label: 'Tourner la page', date: new Date(1778335177) },
       ]
     },
     {
-      name: 'Guides',
+      name: 'Listes',
       content: [
-        { label: 'Exercices Milo', date: new Date(1778335177) },
-        { label: 'Réglages G29', date: new Date(1652104777) },
-        { label: 'Télécharger sur Youtube', date: new Date(1781013577) },
+        { label: 'Idées cadeaux', date: new Date(1778335177) },
+        { label: 'Idées repas', date: new Date(1652104777) },
+        { label: 'Idées Sorties', date: new Date(1781013577) },
+        { label: 'Jeux vidéos', date: new Date(1778335177) },
+        { label: 'Musique', date: new Date(1778335177) },
+        { label: 'Projets', date: new Date(1652104777) },
+        { label: 'Séries & films', date: new Date(1781013577) },
       ]
     },
     {
-      name: 'Idées',
-      content: [
-        { label: 'Cadeaux perso', date: new Date(1778335177) },
-        { label: 'Cadeaux Salomé', date: new Date(1652104777) },
-        { label: 'Projets', date: new Date(1781013577) },
-        { label: 'Repas', date: new Date(1778335177) },
-        { label: 'Sorties', date: new Date(1652104777) },
-      ]
-    },
-    {
-      name: 'Journal',
-      content: [
-        { label: 'Pensées', date: new Date(1778335177) },
-        { label: 'Psy', date: new Date(1652104777) },
-        { label: 'Tourner la page', date: new Date(1781013577) },
-      ]
-    },
-    {
-      name: 'Vrac',
+      name: 'Archives',
       content: [
         { label: 'Artistes de psy-trance', date: new Date(1778335177) },
-        { label: 'Attestation Mattiou', date: new Date(1652104777) },
-        { label: 'Jeux vidéos', date: new Date(1781013577) },
-        { label: 'Films', date: new Date(1778335177) },
-        { label: 'Séries', date: new Date(1652104777) },
-        { label: 'Jeux vidéos', date: new Date(1781013577) },
+        { label: 'Noms de films rigolos', date: new Date(1652104777) },
+        { label: 'Noms pour la Jogger', date: new Date(1781013577) },
+        { label: 'Exercices Milo', date: new Date(1778335177) },
+        { label: 'Réglages G29', date: new Date(1652104777) },
+        { label: 'Carnet alimentaire', date: new Date(1781013577) },
       ]
     },
   ]
