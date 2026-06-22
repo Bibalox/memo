@@ -9,14 +9,9 @@
 
   watch(route, () => {
     const classList = mainContainer?.classList
-    console.log(classList)
-    if (route.meta.withToolbar) {
-      classList?.add('app__main--with-toolbar')
-      console.log('toto')
-    } else {
-      classList?.remove('app__main--with-toolbar')
-      console.log('tata')
-    }
+    route.meta.withToolbar
+      ? classList?.add('app__main--with-toolbar')
+      : classList?.remove('app__main--with-toolbar')
   })
 </script>
 
