@@ -22,8 +22,8 @@
       "@types": [
         "./src/types.ts"
       ],
-      "@utils": [
-        "./src/utils.ts"
+      "@utils/*": [
+        "./src/utils/*"
       ],
     },
     // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
