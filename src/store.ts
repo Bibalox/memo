@@ -11,26 +11,45 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '@utils/supabase'
 
-import type { Note } from '@types'
+import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
-  const notes = ref<Note[]>()
-  const favoriteNotes = ref<Note[]>()
+  const categories = ref<Category[]>()
+  const notes = ref<Note[]>([])
+  const favoriteNotes = ref<Note[]>([])
 
-  const fetchNotes = async (category: string) => {
-    const { data } = await supabase.from('notes').select('*').eq('category', category)
-    if (data) notes.value = data
+  const fetchCategories = async () => {
+    const { data } = await (
+      supabase
+        .from('categories')
+        .select('*')
+        .order('position')
+    )
+
+    if (data) {
+      categories.value = data
+    }
   }
 
-  const fetchFavoriteNotes = async () => {
-    const { data } = await supabase.from('notes').select('*').eq('favorite', true)
-    if (data) favoriteNotes.value = data
+  const fetchNotes = async () => {
+    const { data } = await (
+      supabase
+        .from('notes')
+        .select('*')
+        .order('name')
+    )
+
+    if (data) {
+      favoriteNotes.value = data.filter((note) => note.favorite)
+      notes.value = data
+    }
   }
 
   return {
     notes,
     favoriteNotes,
+    categories,
+    fetchCategories,
     fetchNotes,
-    fetchFavoriteNotes,
   }
 })

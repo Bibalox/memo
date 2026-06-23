@@ -7,16 +7,23 @@
   const store = useStore()
 
   onMounted(async () => {
-    await store.fetchFavoriteNotes()
+    await store.fetchCategories()
+    await store.fetchNotes()
   })
 </script>
 
 <template>
   <le-accordion
-    v-if="store.favoriteNotes"
+    v-if="store.favoriteNotes[0]"
     title="Favoris"
     :notes="store.favoriteNotes"
     open
+  />
+  <le-accordion
+    v-for="category in store.categories"
+    :key="category.position"
+    :title="category.name"
+    :notes="store.notes.filter((note) => note.category === category.id)"
   />
 </template>
 
