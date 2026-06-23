@@ -9,7 +9,7 @@
 
 <template>
   <router-link
-    :to="{ name: to }"
+    :to="to"
     :class="['le-button label', `le-button--${type}`]"
     tabindex="0"
   >

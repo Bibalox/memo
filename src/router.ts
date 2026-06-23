@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import HomePage from '@pages/HomePage.vue'
 import NotePage from '@pages/NotePage.vue'
 
@@ -11,21 +12,12 @@ const router = createRouter({
       component: HomePage
     },
     {
-      path: '/note',
-      name: 'write-note',
+      path: '/note/:id/:mode',
       component: NotePage,
-      props: { mode: 'write' },
-      meta: { withToolbar: true }
-    },
-    {
-      path: '/note',
-      name: 'read-note',
-      component: NotePage,
-      props: { mode: 'read' },
       meta: { withToolbar: true }
     },
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   },
 })

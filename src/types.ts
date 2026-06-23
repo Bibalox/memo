@@ -1,7 +1,7 @@
 export type NoteMode = 'write' | 'read'
 
 export type Note = {
-  id: number
+  id: string
   last_update?: number
   category: string
   name: string

@@ -5,7 +5,8 @@
 
   const props = defineProps<{
     lastUpdate?: number
-    name: string
+    noteId: string
+    noteName: string
   }>()
 
   const relativeTime = computed(() => {
@@ -43,18 +44,18 @@
       />
       <span
         class="le-accordion-item__label headline"
-        v-text="name"
+        v-text="noteName"
       />
     </div>
     <le-button
       type="icon"
       icon="write"
-      to="write-note"
+      :to="`note/${noteId}/write`"
     />
     <le-button
       type="icon"
       icon="read"
-      to="read-note"
+      :to="`note/${noteId}/read`"
     />
   </div>
 </template>

@@ -29,7 +29,7 @@
 
       <ul
         v-if="block.type === 'unordered-list'"
-        class="le-note-viewer__list le-note-viewer__list--unordered body"
+        class="le-note-viewer__list body"
       >
         <li
           v-for="(item, itemIndex) in block.items"
@@ -95,11 +95,7 @@
 
     &__list {
       margin: 0 0 var(--body-line-height);
-      
-
-      &--unordered {
-        padding: 0 0 0 var(--body-font-size);
-      }
+      padding: 0 0 0 var(--body-font-size);
 
       &:last-child {
         margin: 0;
@@ -126,7 +122,7 @@
       border: none;
       padding: 0;
       margin: var(--body-line-height) 0;
-      width: 100%;
+      width: 50%;
 
       &:last-child {
         margin-bottom: 0;

@@ -34,7 +34,8 @@
         >
           <le-accordion-item
             :last-update="note.last_update"
-            :name="note.name"
+            :note-id="note.id"
+            :note-name="note.name"
           />
           <le-divider v-if="index + 1 < notes.length" />
         </template>

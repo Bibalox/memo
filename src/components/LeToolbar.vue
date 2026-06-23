@@ -15,7 +15,7 @@
   <div class="le-toolbar">
     <le-button
       type="both"
-      to="home"
+      to="/"
       label="Retour"
       icon="arrow-left"
     />

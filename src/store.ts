@@ -10,7 +10,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '@utils/supabase'
-
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
@@ -31,6 +30,18 @@ export const useStore = defineStore("noteStore", () => {
     }
   }
 
+  const fetchNote = async (id: string) => {
+    const { data } = await (
+      supabase
+        .from('notes')
+        .select('*')
+        .limit(1)
+        .match({ id: id })
+    )
+
+    return data ? data[0] : null
+  }
+
   const fetchNotes = async () => {
     const { data } = await (
       supabase
@@ -46,10 +57,11 @@ export const useStore = defineStore("noteStore", () => {
   }
 
   return {
+    categories,
     notes,
     favoriteNotes,
-    categories,
     fetchCategories,
     fetchNotes,
+    fetchNote,
   }
 })
