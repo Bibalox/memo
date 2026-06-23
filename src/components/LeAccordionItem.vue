@@ -4,14 +4,16 @@
   import LeButton from '@components/LeButton.vue'
 
   const props = defineProps<{
-    lastUpdate?: Date
+    lastUpdate?: number
     name: string
   }>()
 
   const relativeTime = computed(() => {
     if (props.lastUpdate) {
-      const duration = Date.now() / 1000 - props.lastUpdate.getTime()
-
+      const now = Date.now()
+      const then = props.lastUpdate
+      const duration = (now - then) / 1000
+    
       if (duration < 60) {
         return "Il y a quelques instants"
       } else if (duration < 3600) {

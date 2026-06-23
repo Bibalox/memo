@@ -33,7 +33,7 @@
           :key="index"
         >
           <le-accordion-item
-            :last-update="note.lastUpdate"
+            :last-update="note.last_update"
             :name="note.name"
           />
           <le-divider v-if="index + 1 < notes.length" />
