@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useRouter } from 'vue-router'
   import type { Mode } from '@types'
 
   import LeButton from '@components/LeButton.vue'
@@ -9,15 +10,21 @@
   }>()
 
   defineEmits(['modeUpdate'])
+
+  const router = useRouter()
+
+  const navigateTo = (path: string) => {
+    router.push({ path })
+  }
 </script>
 
 <template>
   <div class="le-toolbar">
     <le-button
       type="both"
-      to="/"
       label="Retour"
       icon="arrow-left"
+      @click="navigateTo('/')"
     />
     <le-segmented-control
       :current-mode="mode"

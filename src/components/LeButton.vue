@@ -3,13 +3,11 @@
     label?: string
     icon?: string
     type: 'icon' | 'text' | 'both'
-    to: string
   }>()
 </script>
 
 <template>
-  <router-link
-    :to="to"
+  <button
     :class="['le-button label', `le-button--${type}`]"
     tabindex="0"
   >
@@ -24,7 +22,7 @@
       class="le-button__label"
       v-text="label"
     />
-  </router-link>
+  </button>
 </template>
 
 <style lang="scss">
@@ -34,6 +32,7 @@
     border-color: transparent;
     border-radius: var(--radius-l);
     color: var(--foreground-neutral-base);
+    cursor: pointer;
     display: flex;
     fill: var(--foreground-neutral-base);
     height: 48px;
@@ -56,6 +55,7 @@
     }
 
     &--icon {
+      border: none;
       outline-offset: 0;
       width: 48px;
     }

@@ -1,7 +1,10 @@
 <script setup lang="ts">
   import { computed } from 'vue'
+  import { useRouter } from 'vue-router'
 
   import LeButton from '@components/LeButton.vue'
+
+  const router = useRouter()
 
   const props = defineProps<{
     lastUpdate?: number
@@ -14,7 +17,7 @@
       const now = Date.now()
       const then = props.lastUpdate
       const duration = (now - then) / 1000
-    
+
       if (duration < 60) {
         return "Il y a quelques instants"
       } else if (duration < 3600) {
@@ -33,6 +36,10 @@
     }
 
   })
+
+  const navigateTo = (path: string) => {
+    router.push({ path })
+  }
 </script>
 
 <template>
@@ -50,12 +57,12 @@
     <le-button
       type="icon"
       icon="write"
-      :to="`note/${noteId}/write`"
+      @click="navigateTo(`note/${noteId}/write`)"
     />
     <le-button
       type="icon"
       icon="read"
-      :to="`note/${noteId}/read`"
+      @click="navigateTo(`note/${noteId}/read`)"
     />
   </div>
 </template>
