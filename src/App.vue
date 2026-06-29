@@ -4,14 +4,16 @@
 
   const route = useRoute()
   let mainContainer: HTMLElement | null
-  
+
   onMounted(() => { mainContainer = document.querySelector('#app') })
 
   watch(route, () => {
     const classList = mainContainer?.classList
-    route.meta.withToolbar
-      ? classList?.add('app__main--with-toolbar')
-      : classList?.remove('app__main--with-toolbar')
+    if (route.meta.withToolbar) {
+      classList?.add('app__main--with-toolbar')
+     } else {
+      classList?.remove('app__main--with-toolbar')
+     }
   })
 </script>
 
@@ -44,7 +46,7 @@
     flex-direction: column;
     margin: 0;
     min-height: 100dvh;
-    padding: 0;    
+    padding: 0;
   }
 
   .app {
@@ -63,7 +65,7 @@
 
       &--with-toolbar {
         padding-top: calc(var(--spacing-responsive-m) * 2 + 48px);
-      } 
+      }
     }
   }
 </style>
