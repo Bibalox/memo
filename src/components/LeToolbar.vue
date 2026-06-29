@@ -1,19 +1,26 @@
 <script setup lang="ts">
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
+  import { useStore } from '@store'
   import type { Mode } from '@types'
 
   import LeButton from '@components/LeButton.vue'
   import LeSegmentedControl from '@components/LeSegmentedControl.vue'
 
-  defineProps<{
+  const props = defineProps<{
     mode: Mode
+    mustSync: boolean
   }>()
 
   defineEmits(['modeUpdate'])
 
+  const store = useStore()
+  const route = useRoute()
   const router = useRouter()
 
-  const navigateTo = (path: string) => {
+  const manageClick = async (path: string) => {
+    if (props.mustSync) {
+      await store.updateNote(route.params.id as string)
+    }
     router.push({ path })
   }
 </script>
@@ -24,7 +31,7 @@
       type="both"
       label="Retour"
       icon="arrow-left"
-      @click="navigateTo('/')"
+      @click="manageClick('/')"
     />
     <le-segmented-control
       :current-mode="mode"

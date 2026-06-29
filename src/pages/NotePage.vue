@@ -1,35 +1,50 @@
 <script setup lang="ts">
-  import { computed, toRef, onMounted } from 'vue'
-  import { useStore } from '@store'
+  import { ref, toRef, onMounted, computed, watch, onBeforeUnmount } from 'vue'
   import { useRoute } from 'vue-router'
+  import { useStore } from '@store'
   import type { Mode } from '@types'
 
   import LeToolbar from '@components/LeToolbar.vue'
   import LeNoteEditor from '@components/LeNoteEditor.vue'
   import LeNoteViewer from '@components/LeNoteViewer.vue'
 
-  const store = useStore()
   const route = useRoute()
+  const store = useStore()
 
+  let timeout: ReturnType<typeof setTimeout> | null = null
   const mode = toRef(route.params.mode as Mode ?? 'read')
+  const note = computed(() => {
+    return store.getNote(route.params.id as string)
+  })
+  const mustSync = ref(false)
+
+  watch(
+    () => note.value?.content,
+    () => {
+      mustSync.value = true
+      if (timeout) clearTimeout(timeout)
+
+      timeout = setTimeout(() => {
+        store.updateNote(route.params.id as string)
+        mustSync.value = false
+      }, 500)
+    }
+  )
 
   onMounted(async () => {
     if (!store.loaded) await store.fetchData()
   })
 
-  const note = computed(() => {
-    return store.getNote(route.params.id as string)
+  onBeforeUnmount(() => {
+    if (timeout) clearTimeout(timeout)
   })
-
-  // watch(
-  //   () => note.value?.content,
-  //   () => console.log(store.getNote(route.params.id as string), store.notes)
-  // )
 </script>
 
 <template>
   <le-toolbar
+    v-show="note"
     :mode="mode"
+    :must-sync="mustSync"
     @mode-update="(newMode: Mode) => mode = newMode"
   />
   <le-note-editor

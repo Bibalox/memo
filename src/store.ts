@@ -44,40 +44,29 @@ export const useStore = defineStore("noteStore", () => {
     }
   }
 
+
   const fetchData = async () => {
     await fetchCategories()
     await fetchNotes()
     loaded.value = true
   }
 
+
   const getNote = (id: string) => {
     return notes.value.find(note => note.id.toString() === id)
   }
 
 
-  // const fetchNote = async (id: string) => {
-  //   const { data } = await (
-  //     supabase
-  //       .from('notes')
-  //       .select('*')
-  //       .limit(1)
-  //       .match({ id: id })
-  //   )
+  const updateNote = async (id: string) => {
+    const note: Note | undefined = getNote(id)
 
-  //   return data ? data[0] : null
-  // }
-
-
-  // const updateNote = async (id: string, newContent: string) => {
-  //   const { data } = await (
-  //     supabase
-  //       .from('notes')
-  //       .update({ content: newContent, last_update: Date.now() })
-  //       .match({ id: id })
-  //   )
-
-  //   return data ? data[0] : null
-  // }
+    await (
+      supabase
+        .from('notes')
+        .update({ content: note?.content, last_update: Date.now() })
+        .match({ id: id })
+    )
+  }
 
 
   return {
@@ -85,6 +74,7 @@ export const useStore = defineStore("noteStore", () => {
     notes,
     loaded,
     fetchData,
-    getNote
+    getNote,
+    updateNote
   }
 })
