@@ -9,7 +9,7 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { supabase } from '@utils/supabase-config'
+import { supabase, initSupabase } from '@utils/supabase-config'
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
@@ -18,30 +18,29 @@ export const useStore = defineStore("noteStore", () => {
   const notes = ref<Note[]>([])
   const loaded = ref(false)
 
-
   const fetchCategories = async () => {
+    await initSupabase()
+
     const { data } = await (
       supabase
         .from('categories')
         .select('*')
         .order('position')
     )
-    if (data) {
-      categories.value = data
-    }
+    if (data) categories.value = data
   }
 
 
   const fetchNotes = async () => {
+    await initSupabase()
+
     const { data } = await (
       supabase
         .from('notes')
         .select('*')
         .order('name')
     )
-    if (data) {
-      notes.value = data
-    }
+    if (data) notes.value = data
   }
 
 
@@ -57,6 +56,8 @@ export const useStore = defineStore("noteStore", () => {
   }
 
   const updateNote = async (id: string) => {
+    await initSupabase()
+
     const note = getNote(id)
 
     const { error } = await Promise.race([
@@ -73,9 +74,7 @@ export const useStore = defineStore("noteStore", () => {
       ),
     ])
 
-    if (error) {
-      throw error
-    }
+    if (error) throw error
   }
 
   return {
