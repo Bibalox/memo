@@ -59,23 +59,24 @@ export const useStore = defineStore("noteStore", () => {
   const updateNote = async (id: string) => {
     const note = getNote(id)
 
-    try {
-      await Promise.race([
-        supabase
-          .from('notes')
-          .update({ content: note?.content, last_update: Date.now() })
-          .match({ id }),
+    const { error } = await Promise.race([
+      supabase
+        .from('notes')
+        .update({
+          content: note?.content,
+          last_update: Date.now(),
+        })
+        .match({ id }),
 
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Timeout')), 1000)
-        ),
-      ])
-      return false
-    } catch {
-      return true
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Timeout')), 1000)
+      ),
+    ])
+
+    if (error) {
+      throw error
     }
   }
-
 
   return {
     categories,

@@ -26,13 +26,14 @@
     if (timeout) clearTimeout(timeout)
 
     timeout = setTimeout(async () => {
-      const result = await store.updateNote(route.params.id as string)
-      state.onError = result
-      if (state.onError) {
-        if (document.activeElement instanceof HTMLElement) document.activeElement.blur()
-        syncNote()
-      } else {
+      try {
+        await store.updateNote(route.params.id as string)
+        state.onError = false
         state.mustSync = false
+      } catch {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur()
+        state.onError = true
+        syncNote()
       }
     }, 500)
   }
