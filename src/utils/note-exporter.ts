@@ -1,8 +1,6 @@
 import JSZip from 'jszip'
-import { useStore } from '@store'
 import { saveAs } from 'file-saver'
-
-const store = useStore()
+import type { Category, Note } from '@types'
 
 const sanitize = (name: string) => {
   return name
@@ -10,13 +8,13 @@ const sanitize = (name: string) => {
     .trim()
 }
 
-export const exportNotes = async () => {
+export const exportNotes = async (categories: Category[], notes: Note[]) => {
   const zip = new JSZip()
 
-  for (const category of store.categories) {
+  for (const category of categories) {
     const folder = zip.folder(category.name)
 
-    for (const note of store.notes) {
+    for (const note of notes) {
       if (note.category === category.id) {
         const filename = `${sanitize(note.name || 'Untitled')}.md`
         folder?.file(filename, note.content)

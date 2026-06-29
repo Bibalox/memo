@@ -32,7 +32,7 @@
     v-show="store.loaded"
     type="text"
     label="Exporter les notes"
-    @click="exportNotes()"
+    @click="exportNotes(store.categories, store.notes)"
   />
 </template>
 
