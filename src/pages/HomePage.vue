@@ -8,7 +8,7 @@
   const store = useStore()
 
   onMounted(async () => {
-    if (!store.loaded) await store.fetchData()
+    await store.fetchData()
   })
 </script>
 
