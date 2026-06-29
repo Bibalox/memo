@@ -14,7 +14,7 @@ import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
 
-  const categories = ref<Category[]>()
+  const categories = ref<Category[]>([])
   const notes = ref<Note[]>([])
   const loaded = ref(false)
 

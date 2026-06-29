@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import { onMounted } from 'vue'
   import { useStore } from '@store'
+  import { exportNotes } from '@utils/note-export'
   import type { Note } from '@types'
 
   import LeAccordion from '@components/LeAccordion.vue'
+  import LeButton from '@components/LeButton.vue'
 
   const store = useStore()
 
@@ -26,10 +28,14 @@
     :title="category.name"
     :notes="store.notes.filter((note: Note) => note.category === category.id)"
   />
+  <le-button
+    v-show="store.loaded"
+    type="text"
+    label="Exporter les notes"
+    @click="exportNotes()"
+  />
 </template>
 
 <style lang="scss">
-.text {
-  color: var(--foreground-neutral-base);
-}
+
 </style>
