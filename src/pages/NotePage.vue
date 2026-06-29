@@ -66,18 +66,16 @@
 </template>
 
 <style lang="scss">
-.le-overlay {
-  align-items: center;
-  background-color: var(--overlay-base);
-  color: var(--foreground-neutral-base);
-  display: flex;
-  height: 100dvh;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100dvw;
-
-  &__item {}
-}
+  .le-overlay {
+    align-items: center;
+    background-color: var(--overlay-base);
+    color: var(--foreground-neutral-base);
+    display: flex;
+    height: 100dvh;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100dvw;
+  }
 </style>
