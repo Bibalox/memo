@@ -3,10 +3,10 @@
   import { parseMarkdown } from '@utils/markdown'
 
   const props = defineProps<{
-    content: string
+    content?: string
   }>()
 
-  const splitContent = computed(() => parseMarkdown(props.content))
+  const splitContent = computed(() => parseMarkdown(props.content ?? ''))
 </script>
 
 <template>

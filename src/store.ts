@@ -13,9 +13,11 @@ import { supabase } from '@utils/supabase'
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
+
   const categories = ref<Category[]>()
   const notes = ref<Note[]>([])
   const favoriteNotes = ref<Note[]>([])
+
 
   const fetchCategories = async () => {
     const { data } = await (
@@ -24,11 +26,11 @@ export const useStore = defineStore("noteStore", () => {
         .select('*')
         .order('position')
     )
-
     if (data) {
       categories.value = data
     }
   }
+
 
   const fetchNote = async (id: string) => {
     const { data } = await (
@@ -42,6 +44,19 @@ export const useStore = defineStore("noteStore", () => {
     return data ? data[0] : null
   }
 
+
+  const updateNote = async (id: string, newContent: string) => {
+    const { data } = await (
+      supabase
+        .from('notes')
+        .update({ content: newContent, last_update: Date.now() })
+        .match({ id: id })
+    )
+
+    return data ? data[0] : null
+  }
+
+
   const fetchNotes = async () => {
     const { data } = await (
       supabase
@@ -49,19 +64,21 @@ export const useStore = defineStore("noteStore", () => {
         .select('*')
         .order('name')
     )
-
     if (data) {
       favoriteNotes.value = data.filter((note) => note.favorite)
       notes.value = data
     }
   }
 
+
   return {
     categories,
     notes,
     favoriteNotes,
     fetchCategories,
-    fetchNotes,
     fetchNote,
+    updateNote,
+    fetchNotes,
   }
+
 })

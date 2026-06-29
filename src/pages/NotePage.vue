@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, toRef, onMounted } from 'vue'
+  import { reactive, toRef, onMounted } from 'vue'
   import { useStore } from '@store'
   import { useRoute } from 'vue-router'
   import type { NoteMode } from '@types'
@@ -12,27 +12,35 @@
   const route = useRoute()
 
   const currentMode = toRef(route.params.mode as NoteMode ?? 'read')
-  const noteContent = ref('')
+  const currentNote = reactive({
+    id: undefined,
+    content: ''
+  })
 
   onMounted(async () => {
     const note = await store.fetchNote(route.params.id as string)
-    noteContent.value = note.content
+    currentNote.content = note.content
+    currentNote.id = note.id 
   })
-  //const noteContent = ref('# Hello world!\n\nThis is a cool text\n\nThis is another cool text, which is waaaaaaaayyyyyy too long to be handled on a single line!\n- Topic 1\n\n- Topic 2\n-\n- Topic 3\n- Topic 4\n***\nAnd another paragraph\n- Topic Z\n> First line\n> Second line\n>\n> Third line\nAnd another paragraph\n---\nAnd another one!')
+
+  const toto = (newMode: NoteMode) => {
+    currentMode.value = newMode
+    if (currentNote.id && currentNote.content !== '') store.updateNote(currentNote.id, currentNote.content)
+  }
 </script>
 
 <template>
   <le-toolbar
     :mode="currentMode"
-    @mode-update="(newMode: NoteMode) => currentMode = newMode"
+    @mode-update="(newMode: NoteMode) => toto(newMode)"
   />
   <le-note-editor
     v-if="currentMode === 'write'"
-    v-model="noteContent"
+    v-model="currentNote.content"
   />
   <le-note-viewer
     v-if="currentMode === 'read'"
-    :content="noteContent"
+    :content="currentNote.content"
   />
 </template>
 
