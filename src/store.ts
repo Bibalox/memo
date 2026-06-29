@@ -1,9 +1,9 @@
 // ---------------------------------------------------------------------------------------------------------
 // IMPORTANT NOTE!
 
-// Think about creating a .env file at the root of this project with the following variables:
-// VITE_SUPABASE_URL
-// VITE_SUPABASE_PUBLISHABLE_KEY
+// You have to create a .env file at the root of this project with the following variables:
+// VITE_SUPABASE_URL=myURL
+// VITE_SUPABASE_PUBLISHABLE_KEY=myKey
 
 // ---------------------------------------------------------------------------------------------------------
 
