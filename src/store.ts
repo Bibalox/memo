@@ -9,7 +9,7 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { supabase } from '@utils/supabase'
+import { supabase } from '@utils/supabase-config'
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {

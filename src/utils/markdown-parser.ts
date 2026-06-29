@@ -13,7 +13,7 @@ export function parseMarkdown(markdown: string) {
     }
 
     // Title: starts with single '#' (not '##')
-    if (/^# /.test(line)) {
+    if (line.startsWith('# ')) {
       result.push({ type: 'title', content: line.slice(2) })
       i++
       continue
@@ -27,12 +27,12 @@ export function parseMarkdown(markdown: string) {
     }
 
     // List: consecutive lines starting with '- '
-    if (/^- /.test(line)) {
+    if (line.startsWith('- ')) {
       const items = []
       while (i < lines.length) {
         const line = lines[i]
 
-        if (line === undefined || !/^- /.test(line)) break
+        if (line === undefined || !line.startsWith('- ')) break
 
         items.push(line.slice(2))
         i++
@@ -55,12 +55,12 @@ export function parseMarkdown(markdown: string) {
     }
 
     // Blockquote: consecutive lines starting with '> '
-    if (/^> /.test(line)) {
+    if (line.startsWith('> ')) {
       const items = []
       while (i < lines.length) {
         const line = lines[i]
 
-        if (line === undefined || !/^> /.test(line)) break
+        if (line === undefined || !line.startsWith('> ')) break
 
         items.push(line.slice(2))
         i++

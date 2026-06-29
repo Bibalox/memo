@@ -24,7 +24,6 @@ export const exportNotes = async () => {
     }
   }
 
-
   const blob = await zip.generateAsync({
     type: 'blob',
   })

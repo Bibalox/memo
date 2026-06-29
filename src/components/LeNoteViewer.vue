@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { parseMarkdown } from '@utils/markdown'
+  import { parseMarkdown } from '@utils/markdown-parser'
 
   const props = defineProps<{
     content?: string
@@ -76,7 +76,7 @@
     flex: 1;
     flex-direction: column;
     justify-content: center;
-    
+
     &__title {
       margin: 0 0 var(--spacing-static-s);
 
@@ -95,7 +95,7 @@
 
     &__list {
       margin: 0 0 var(--body-line-height);
-      
+
       &--unordered {
         padding: 0 0 0 var(--body-font-size);
       }
