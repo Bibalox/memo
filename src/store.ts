@@ -56,16 +56,24 @@ export const useStore = defineStore("noteStore", () => {
     return notes.value.find(note => note.id.toString() === id)
   }
 
-
   const updateNote = async (id: string) => {
-    const note: Note | undefined = getNote(id)
+    const note = getNote(id)
 
-    await (
-      supabase
-        .from('notes')
-        .update({ content: note?.content, last_update: Date.now() })
-        .match({ id: id })
-    )
+    try {
+      await Promise.race([
+        supabase
+          .from('notes')
+          .update({ content: note?.content, last_update: Date.now() })
+          .match({ id }),
+
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Timeout')), 1000)
+        ),
+      ])
+      return false
+    } catch {
+      return true
+    }
   }
 
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, toRef, onMounted, computed, watch, onBeforeUnmount } from 'vue'
+  import { reactive, toRef, onMounted, computed, watch, onBeforeUnmount } from 'vue'
   import { useRoute } from 'vue-router'
   import { useStore } from '@store'
   import type { Mode } from '@types'
@@ -16,35 +16,37 @@
   const note = computed(() => {
     return store.getNote(route.params.id as string)
   })
-  const mustSync = ref(false)
-
-  watch(
-    () => note.value?.content,
-    () => {
-      mustSync.value = true
-      if (timeout) clearTimeout(timeout)
-
-      timeout = setTimeout(() => {
-        store.updateNote(route.params.id as string)
-        mustSync.value = false
-      }, 500)
-    }
-  )
-
-  onMounted(async () => {
-    if (!store.loaded) await store.fetchData()
+  const state = reactive({
+    mustSync: false,
+    onError: false
   })
 
-  onBeforeUnmount(() => {
+  const syncNote = () => {
+    state.mustSync = true
     if (timeout) clearTimeout(timeout)
-  })
+
+    timeout = setTimeout(async () => {
+      const result = await store.updateNote(route.params.id as string)
+      state.onError = result
+      if (state.onError) {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur()
+        syncNote()
+      } else {
+        state.mustSync = false
+      }
+    }, 500)
+  }
+
+  watch(() => note.value?.content, () => syncNote())
+  onMounted(async () => { if (!store.loaded) await store.fetchData() })
+  onBeforeUnmount(() => { if (timeout) clearTimeout(timeout) })
 </script>
 
 <template>
   <le-toolbar
     v-show="note"
     :mode="mode"
-    :must-sync="mustSync"
+    :must-sync="state.mustSync"
     @mode-update="(newMode: Mode) => mode = newMode"
   />
   <le-note-editor
@@ -55,7 +57,26 @@
     v-if="mode === 'read' && note"
     :content="note.content"
   />
+  <span
+    v-if="state.onError"
+    class="le-overlay label"
+    v-text="'Hors connexion'"
+  />
 </template>
 
 <style lang="scss">
+.le-overlay {
+  align-items: center;
+  background-color: var(--overlay-base);
+  color: var(--foreground-neutral-base);
+  display: flex;
+  height: 100dvh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100dvw;
+
+  &__item {}
+}
 </style>
