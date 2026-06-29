@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import type { NoteMode } from '@types'
+  import type { Mode } from '@types'
 
   import LeButton from '@components/LeButton.vue'
   import LeSegmentedControl from '@components/LeSegmentedControl.vue'
 
   defineProps<{
-    mode: NoteMode
+    mode: Mode
   }>()
 
   defineEmits(['modeUpdate'])

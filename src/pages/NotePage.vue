@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { reactive, toRef, onMounted } from 'vue'
+  import { computed, toRef, onMounted } from 'vue'
   import { useStore } from '@store'
   import { useRoute } from 'vue-router'
-  import type { NoteMode } from '@types'
+  import type { Mode } from '@types'
 
   import LeToolbar from '@components/LeToolbar.vue'
   import LeNoteEditor from '@components/LeNoteEditor.vue'
@@ -11,36 +11,34 @@
   const store = useStore()
   const route = useRoute()
 
-  const currentMode = toRef(route.params.mode as NoteMode ?? 'read')
-  const currentNote = reactive({
-    id: undefined,
-    content: ''
-  })
+  const mode = toRef(route.params.mode as Mode ?? 'read')
 
   onMounted(async () => {
-    const note = await store.fetchNote(route.params.id as string)
-    currentNote.content = note.content
-    currentNote.id = note.id 
+    if (!store.loaded) await store.fetchData()
   })
 
-  const toto = (newMode: NoteMode) => {
-    currentMode.value = newMode
-    if (currentNote.id && currentNote.content !== '') store.updateNote(currentNote.id, currentNote.content)
-  }
+  const note = computed(() => {
+    return store.getNote(route.params.id as string)
+  })
+
+  // watch(
+  //   () => note.value?.content,
+  //   () => console.log(store.getNote(route.params.id as string), store.notes)
+  // )
 </script>
 
 <template>
   <le-toolbar
-    :mode="currentMode"
-    @mode-update="(newMode: NoteMode) => toto(newMode)"
+    :mode="mode"
+    @mode-update="(newMode: Mode) => mode = newMode"
   />
   <le-note-editor
-    v-if="currentMode === 'write'"
-    v-model="currentNote.content"
+    v-if="mode === 'write' && note"
+    v-model="note.content"
   />
   <le-note-viewer
-    v-if="currentMode === 'read'"
-    :content="currentNote.content"
+    v-if="mode === 'read' && note"
+    :content="note.content"
   />
 </template>
 

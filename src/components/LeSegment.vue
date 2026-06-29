@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import type { NoteMode } from '@types'
-  
+  import type { Mode } from '@types'
+
   defineProps<{
     selected: boolean
-    mode: NoteMode
+    mode: Mode
   }>()
 </script>
 

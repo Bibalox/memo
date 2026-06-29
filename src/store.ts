@@ -16,7 +16,7 @@ export const useStore = defineStore("noteStore", () => {
 
   const categories = ref<Category[]>()
   const notes = ref<Note[]>([])
-  const favoriteNotes = ref<Note[]>([])
+  const loaded = ref(false)
 
 
   const fetchCategories = async () => {
@@ -32,31 +32,6 @@ export const useStore = defineStore("noteStore", () => {
   }
 
 
-  const fetchNote = async (id: string) => {
-    const { data } = await (
-      supabase
-        .from('notes')
-        .select('*')
-        .limit(1)
-        .match({ id: id })
-    )
-
-    return data ? data[0] : null
-  }
-
-
-  const updateNote = async (id: string, newContent: string) => {
-    const { data } = await (
-      supabase
-        .from('notes')
-        .update({ content: newContent, last_update: Date.now() })
-        .match({ id: id })
-    )
-
-    return data ? data[0] : null
-  }
-
-
   const fetchNotes = async () => {
     const { data } = await (
       supabase
@@ -65,20 +40,51 @@ export const useStore = defineStore("noteStore", () => {
         .order('name')
     )
     if (data) {
-      favoriteNotes.value = data.filter((note) => note.favorite)
       notes.value = data
     }
   }
+
+  const fetchData = async () => {
+    await fetchCategories()
+    await fetchNotes()
+    loaded.value = true
+  }
+
+  const getNote = (id: string) => {
+    return notes.value.find(note => note.id.toString() === id)
+  }
+
+
+  // const fetchNote = async (id: string) => {
+  //   const { data } = await (
+  //     supabase
+  //       .from('notes')
+  //       .select('*')
+  //       .limit(1)
+  //       .match({ id: id })
+  //   )
+
+  //   return data ? data[0] : null
+  // }
+
+
+  // const updateNote = async (id: string, newContent: string) => {
+  //   const { data } = await (
+  //     supabase
+  //       .from('notes')
+  //       .update({ content: newContent, last_update: Date.now() })
+  //       .match({ id: id })
+  //   )
+
+  //   return data ? data[0] : null
+  // }
 
 
   return {
     categories,
     notes,
-    favoriteNotes,
-    fetchCategories,
-    fetchNote,
-    updateNote,
-    fetchNotes,
+    loaded,
+    fetchData,
+    getNote
   }
-
 })

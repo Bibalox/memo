@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import type { NoteMode } from '@types'
+  import type { Mode } from '@types'
 
   import LeSegment from '@components/LeSegment.vue'
 
   defineProps<{
-    currentMode: NoteMode
+    currentMode: Mode
   }>()
 
   defineEmits(['clickOnSegment'])
