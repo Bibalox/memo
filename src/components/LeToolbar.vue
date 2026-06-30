@@ -17,11 +17,11 @@
   const route = useRoute()
   const router = useRouter()
 
-  const manageClick = async (path: string) => {
+  const manageClick = async () => {
     if (props.mustSync) {
       await store.updateNote(route.params.id as string)
     }
-    router.push({ path })
+    router.back()
   }
 </script>
 
@@ -31,7 +31,7 @@
       type="both"
       label="Retour"
       icon="arrow-left"
-      @click="manageClick('/')"
+      @click="manageClick"
     />
     <le-segmented-control
       :current-mode="mode"
