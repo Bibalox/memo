@@ -58,7 +58,7 @@
     <le-button
       type="icon"
       icon="write"
-      :disabled="!store.online"
+      :disabled="!store.state.online"
       @click="navigateTo(`note/${noteId}/write`)"
     />
     <le-button

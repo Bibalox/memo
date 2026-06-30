@@ -39,7 +39,7 @@
   }
 
   watch(() => note.value?.content, () => syncNote())
-  onMounted(async () => { if (!store.loaded) await store.fetchData() })
+  onMounted(async () => { if (!store.state.loaded) await store.fetchData() })
   onBeforeUnmount(() => { if (timeout) clearTimeout(timeout) })
 </script>
 

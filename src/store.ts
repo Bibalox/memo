@@ -7,7 +7,7 @@
 
 // ---------------------------------------------------------------------------------------------------------
 
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { getLocalCategories, getLocalNotes, saveLocalCategories, saveLocalNotes } from '@utils/indexed-db-helper'
 import { supabase } from '@utils/supabase-helper'
@@ -15,13 +15,17 @@ import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
 
+  const state = reactive({
+    connected: false,
+    loaded: false,
+    online: navigator.onLine
+  })
+
   const categories = ref<Category[]>([])
   const notes = ref<Note[]>([])
-  const loaded = ref(false)
-  const online = ref(navigator.onLine)
 
   const fetchCategories = async () => {
-    if (online.value) {
+    if (state.online) {
       const { data } = await (
         supabase
           .from('categories')
@@ -43,7 +47,7 @@ export const useStore = defineStore("noteStore", () => {
 
 
   const fetchNotes = async () => {
-    if (online.value) {
+    if (state.online) {
       const { data } = await supabase
         .from('notes')
         .select('*')
@@ -66,7 +70,7 @@ export const useStore = defineStore("noteStore", () => {
   const fetchData = async () => {
     await fetchCategories()
     await fetchNotes()
-    loaded.value = true
+    state.loaded = true
   }
 
 
@@ -96,19 +100,18 @@ export const useStore = defineStore("noteStore", () => {
 
   const watchOnlineStatus = () => {
     window.addEventListener('online', () => {
-      online.value = true
+      state.online = true
     })
 
     window.addEventListener('offline', () => {
-      online.value = false
+      state.online = false
     })
   }
 
   return {
+    state,
     categories,
     notes,
-    loaded,
-    online,
     fetchData,
     getNote,
     updateNote,

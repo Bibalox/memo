@@ -21,7 +21,7 @@
       :class="[
         'le-segmented-control__selection-ring',
         `le-segmented-control__selection-ring--${currentMode}`,
-        { 'le-segmented-control__selection-ring--disabled' : !store.online }
+        { 'le-segmented-control__selection-ring--disabled' : !store.state.online }
       ]"
     />
     <le-segment
@@ -29,7 +29,7 @@
       :key="key"
       :selected="currentMode === mode"
       :mode="mode"
-      :disabled="mode === 'write' && !store.online"
+      :disabled="mode === 'write' && !store.state.online"
       @click="$emit('clickOnSegment', mode)"
     />
   </div>

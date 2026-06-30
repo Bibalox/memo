@@ -16,23 +16,23 @@
 
 <template>
   <le-accordion
-    v-show="store.loaded"
+    v-show="store.state.loaded"
     title="Favoris"
     :notes="store.notes.filter((note: Note) => note.favorite)"
     open
   />
   <le-accordion
     v-for="category in store.categories"
-    v-show="store.loaded"
+    v-show="store.state.loaded"
     :key="category.position"
     :title="category.name"
     :notes="store.notes.filter((note: Note) => note.category === category.id)"
   />
   <le-button
-    v-show="store.loaded"
+    v-show="store.state.loaded"
     type="text"
     label="Exporter les notes"
-    :disabled="!store.online"
+    :disabled="!store.state.online"
     @click="exportNotes(store.categories, store.notes)"
   />
 </template>
