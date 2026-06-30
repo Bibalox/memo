@@ -9,7 +9,8 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { supabase, initSupabase } from '@utils/supabase-config'
+import { getLocalCategories, getLocalNotes, saveLocalCategories, saveLocalNotes } from '@utils/indexed-db-helper'
+import { supabase } from '@utils/supabase-helper'
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
@@ -17,30 +18,43 @@ export const useStore = defineStore("noteStore", () => {
   const categories = ref<Category[]>([])
   const notes = ref<Note[]>([])
   const loaded = ref(false)
+  const online = ref(navigator.onLine)
+
 
   const fetchCategories = async () => {
-    await initSupabase()
+    if (online.value) {
+      const { data } = await (
+        supabase
+          .from('categories')
+          .select('*')
+          .order('position')
+      )
+      if (!data) return
 
-    const { data } = await (
-      supabase
-        .from('categories')
-        .select('*')
-        .order('position')
-    )
-    if (data) categories.value = data
+      categories.value = data
+
+      await saveLocalCategories(data as Category[])
+    } else {
+      categories.value = await getLocalCategories()
+    }
   }
 
 
   const fetchNotes = async () => {
-    await initSupabase()
-
-    const { data } = await (
-      supabase
+    if (online.value) {
+      const { data } = await supabase
         .from('notes')
         .select('*')
         .order('name')
-    )
-    if (data) notes.value = data
+
+      if (!data) return
+
+      notes.value = data
+
+      await saveLocalNotes(data as Note[])
+    } else {
+      notes.value = await getLocalNotes()
+    }
   }
 
 
@@ -56,8 +70,6 @@ export const useStore = defineStore("noteStore", () => {
   }
 
   const updateNote = async (id: string) => {
-    await initSupabase()
-
     const note = getNote(id)
 
     const { error } = await Promise.race([
@@ -77,12 +89,23 @@ export const useStore = defineStore("noteStore", () => {
     if (error) throw error
   }
 
+  const watchOnlineStatus = () => {
+    window.addEventListener('online', () => {
+      online.value = true
+    })
+
+    window.addEventListener('offline', () => {
+      online.value = false
+    })
+  }
+
   return {
     categories,
     notes,
     loaded,
     fetchData,
     getNote,
-    updateNote
+    updateNote,
+    watchOnlineStatus
   }
 })

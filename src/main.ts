@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router.ts'
 import { createPinia } from 'pinia'
+import { initSupabase } from '@utils/supabase-helper.ts'
+import { useStore } from '@store'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -49,3 +51,15 @@ fetch('/assets/logo.svg')
 
 const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 document.documentElement.setAttribute('data-theme', systemTheme)
+
+
+// Initialize Supabase
+
+await initSupabase()
+
+
+// Initialize the online status watcher
+
+const store = useStore()
+
+store.watchOnlineStatus()
