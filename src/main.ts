@@ -6,9 +6,9 @@ import { createPinia } from 'pinia'
 import { registerSW } from 'virtual:pwa-register'
 
 import { useStore } from '@store'
-import { loadAssets } from '@utils/asset-loader.ts'
-import { setTheme } from '@utils/theme-manager.ts'
-import { preventZoomOnDoubleTap } from '@utils/touch-management.ts'
+import { loadAssets } from '@utils/assets.ts'
+import { setTheme } from '@utils/theme.ts'
+import { preventZoomOnDoubleTap } from '@utils/touch.ts'
 
 registerSW({
   immediate: true,

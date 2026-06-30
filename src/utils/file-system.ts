@@ -26,5 +26,5 @@ export const exportNotes = async (categories: Category[], notes: Note[]) => {
     type: 'blob',
   })
 
-  saveAs(blob, 'Notes.zip')
+  saveAs(blob, 'Mémos.zip')
 }

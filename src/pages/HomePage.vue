@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { onMounted } from 'vue'
   import { useStore } from '@store'
-  import { exportNotes } from '@utils/note-exporter'
+  import { exportNotes } from '@utils/file-system'
   import type { Note } from '@types'
 
   import LeAccordion from '@components/LeAccordion.vue'

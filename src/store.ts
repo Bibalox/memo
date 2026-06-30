@@ -9,8 +9,8 @@
 
 import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { getLocalCategories, getLocalNotes, saveLocalCategories, saveLocalNotes } from '@utils/indexed-db-helper'
-import { supabase } from '@utils/supabase-helper'
+import { getLocalCategories, getLocalNotes, saveLocalCategories, saveLocalNotes } from '@utils/indexed-db'
+import { supabase } from '@utils/supabase'
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
