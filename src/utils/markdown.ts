@@ -1,4 +1,4 @@
-export function parseMarkdown(markdown: string) {
+export const parseMarkdown = (markdown: string) => {
   const lines = markdown.split('\n')
   const result = []
   let i = 0
@@ -75,4 +75,36 @@ export function parseMarkdown(markdown: string) {
   }
 
   return result
+}
+
+export const parseInline = (text: string) => {
+  const regex = /(https?:\/\/\S+)/g
+
+  return text
+    .split(regex)
+    .filter(Boolean)
+    .map((part) => {
+      if (!/^https?:\/\//.test(part)) {
+        return {
+          type: 'text',
+          content: part,
+        }
+      }
+
+      const match = part.match(/^(.*?)([),.;!?]+)?$/)!
+
+      return [
+        {
+          type: 'link',
+          content: match[1],
+        },
+        ...(match[2]
+          ? [{
+            type: 'text',
+            content: match[2],
+          }]
+          : []),
+      ]
+    })
+    .flat()
 }

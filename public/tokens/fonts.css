@@ -54,6 +54,7 @@ button {
   letter-spacing: 2%;
   line-height: var(--body-line-height);
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
 }
 
 .headline {

@@ -18,9 +18,7 @@
   const router = useRouter()
 
   const manageClick = async () => {
-    if (props.mustSync) {
-      await store.updateNote(route.params.id as string)
-    }
+    if (props.mustSync) await store.updateNote(route.params.id as string)
     router.back()
   }
 </script>
