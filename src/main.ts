@@ -1,9 +1,14 @@
 import { createApp } from 'vue'
+
 import App from './App.vue'
 import router from './router.ts'
 import { createPinia } from 'pinia'
-import { initSupabase } from '@utils/supabase-helper.ts'
+
+import { setTheme } from '@utils/theme-manager.ts'
+import { loadAssets } from '@utils/asset-loaded.ts'
 import { useStore } from '@store'
+import { initSupabase } from '@utils/supabase-helper.ts'
+import { preventZoomOnDoubleTap } from '@utils/touch-management.ts'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -13,53 +18,14 @@ app
   .use(pinia)
   .mount('#app')
 
-
-// Prevent double-tap zoom on Safari for iOS
-
-let lastTouchEnd = 0
-
-document.addEventListener(
-  'touchend',
-  (event) => {
-    const now = Date.now()
-
-    if (now - lastTouchEnd <= 300) {
-      event.preventDefault()
-    }
-
-    lastTouchEnd = now
-  },
-  { passive: false },
-)
-
-
-// Insert the icon board into the HTML file
-
-fetch('/assets/icons.svg')
-  .then(response => response.text())
-  .then(svg => document.body.insertAdjacentHTML('afterbegin', svg))
-
-
-// Insert the logo into the HTML file
-
-fetch('/assets/logo.svg')
-  .then(response => response.text())
-  .then(svg => document.body.insertAdjacentHTML('afterbegin', svg))
-
-
-// Set the theme
-
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-document.documentElement.setAttribute('data-theme', systemTheme)
-
-
-// Initialize Supabase
-
-await initSupabase()
-
-
-// Initialize the online status watcher
-
 const store = useStore()
 
-store.watchOnlineStatus()
+const init = async () => {
+  preventZoomOnDoubleTap()
+  setTheme()
+  store.watchOnlineStatus()
+  await initSupabase()
+  await loadAssets()
+}
+
+init()
