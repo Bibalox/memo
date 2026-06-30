@@ -20,7 +20,6 @@ export const useStore = defineStore("noteStore", () => {
   const loaded = ref(false)
   const online = ref(navigator.onLine)
 
-
   const fetchCategories = async () => {
     if (online.value) {
       const { data } = await (
@@ -35,7 +34,10 @@ export const useStore = defineStore("noteStore", () => {
 
       await saveLocalCategories(data as Category[])
     } else {
-      categories.value = await getLocalCategories()
+      const array = await getLocalCategories()
+      categories.value = array.sort((a, b) => {
+        return (a.position > b.position) ? 1 : -1
+      })
     }
   }
 
@@ -53,7 +55,10 @@ export const useStore = defineStore("noteStore", () => {
 
       await saveLocalNotes(data as Note[])
     } else {
-      notes.value = await getLocalNotes()
+      const array = await getLocalNotes()
+      notes.value = array.sort((a, b) => {
+        return (a.name > b.name) ? 1 : -1
+      })
     }
   }
 
