@@ -9,7 +9,6 @@ import { useStore } from '@store'
 import { loadAssets } from '@utils/asset-loader.ts'
 import { setTheme } from '@utils/theme-manager.ts'
 import { preventZoomOnDoubleTap } from '@utils/touch-management.ts'
-import { initSupabase } from '@utils/supabase-helper.ts'
 
 registerSW({
   immediate: true,
@@ -29,7 +28,7 @@ const init = async () => {
   preventZoomOnDoubleTap()
   setTheme()
   store.watchOnlineStatus()
-  await initSupabase()
+  store.initializeAuth()
   await loadAssets()
 }
 

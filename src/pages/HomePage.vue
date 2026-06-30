@@ -28,15 +28,34 @@
     :title="category.name"
     :notes="store.notes.filter((note: Note) => note.category === category.id)"
   />
-  <le-button
-    v-show="store.state.loaded"
-    type="text"
-    label="Exporter les notes"
-    :disabled="!store.state.online"
-    @click="exportNotes(store.categories, store.notes)"
-  />
+  <div class="home-page-toolbar">
+    <le-button
+      v-show="store.state.loaded"
+      type="text"
+      label="Exporter les notes"
+      :disabled="!store.state.online"
+      @click="exportNotes(store.categories, store.notes)"
+    />
+    <le-button
+      v-show="store.state.loaded"
+      type="text"
+      label="Se déconnecter"
+      :disabled="!store.state.online"
+      @click="store.logout"
+    />
+  </div>
 </template>
 
 <style lang="scss">
+.home-page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-static-l);
+  width: 100%;
 
+  & > * {
+    flex: 1;
+    min-width: 260px;
+  }
+}
 </style>

@@ -2,8 +2,6 @@
 // IMPORTANT NOTE!
 
 // You have to create a .env file at the root of this project with the following variables:
-// VITE_AUTH_USER=myUser
-// VITE_AUTH_PASSWORD=myPassword
 // VITE_SUPABASE_URL=myURL
 // VITE_SUPABASE_PUBLISHABLE_KEY=myKey
 
@@ -20,18 +18,45 @@ export const useStore = defineStore("noteStore", () => {
   const categories = ref<Category[]>([])
   const notes = ref<Note[]>([])
   const state = reactive({
-    connected: localStorage.getItem('connected') === 'true',
+    connected: false,
     loaded: false,
     online: navigator.onLine
   })
 
 
-  const login = async (user: string, password: string) => {
-    const authUser = import.meta.env.VITE_AUTH_USER
-    const authPassword = import.meta.env.VITE_AUTH_PASSWORD
+  const login = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
 
-    state.connected = (user === authUser && password === authPassword)
-    if (state.connected) localStorage.setItem('connected', 'true')
+    if (error) {
+      throw error
+    }
+  }
+
+
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) throw error
+
+    categories.value = []
+    notes.value = []
+    state.loaded = false
+  }
+
+
+  const initializeAuth = async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
+    state.connected = !!session
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      state.connected = !!session
+    })
   }
 
 
@@ -126,6 +151,8 @@ export const useStore = defineStore("noteStore", () => {
     categories,
     notes,
     login,
+    logout,
+    initializeAuth,
     fetchData,
     getNote,
     updateNote,
