@@ -1,68 +1,158 @@
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { parseMarkdown } from '@utils/markdown'
+  import { parseMarkdown, parseInline } from '@utils/markdown'
+  import type { TextBlock } from '@types'
 
   const props = defineProps<{
     content?: string
   }>()
 
-  const splitContent = computed(() => parseMarkdown(props.content ?? ''))
+  const blocks = computed<TextBlock[]>(() =>
+    parseMarkdown(props.content ?? '').map(block => {
+      switch (block.type) {
+        case 'paragraph':
+          return {
+            type: 'paragraph',
+            content: block.content,
+            parts: parseInline(block.content ?? ''),
+          }
+
+        case 'unordered-list':
+          return {
+            type: 'unordered-list',
+            items: block.items,
+          }
+
+        case 'ordered-list':
+          return {
+            type: 'ordered-list',
+            items: block.items,
+          }
+
+        case 'title':
+          return {
+            type: 'title',
+            content: block.content,
+          }
+
+        case 'blockquote':
+          return {
+            type: 'blockquote',
+            lines: block.lines,
+          }
+
+        case 'divider':
+          return {
+            type: 'divider',
+          }
+
+        default: {
+          const _exhaustive: never = block
+          return _exhaustive
+        }
+      }
+    }),
+  )
 </script>
 
 <template>
   <section class="le-note-viewer">
     <template
-      v-for="(block, blockIndex) in splitContent"
+      v-for="(block, blockIndex) in blocks"
       :key="blockIndex"
     >
       <h2
         v-if="block.type === 'title'"
         class="le-note-viewer__title title"
-        v-text="block.content"
-      />
+      >
+        {{ block.content }}
+      </h2>
 
       <p
-        v-if="block.type === 'paragraph'"
+        v-else-if="block.type === 'paragraph'"
         class="le-note-viewer__paragraph body"
-        v-text="block.content"
-      />
+      >
+        <template
+          v-for="(part, index) in block.parts"
+          :key="`${part.type}-${index}`"
+        >
+          <a
+            v-if="part.type === 'link'"
+            :href="part.content"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ part.content }}
+          </a>
+          <span v-else>{{ part.content }}</span>
+        </template>
+      </p>
 
       <ul
-        v-if="block.type === 'unordered-list'"
+        v-else-if="block.type === 'unordered-list'"
         class="le-note-viewer__list le-note-viewer__list--unordered body"
       >
         <li
           v-for="(item, itemIndex) in block.items"
           :key="itemIndex"
-          v-text="item"
-        />
+        >
+          <template
+            v-for="(part, partIndex) in item.parts"
+            :key="`${part.type}-${partIndex}`"
+          >
+            <a
+              v-if="part.type === 'link'"
+              :href="part.content"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ part.content }}
+            </a>
+            <span v-else>{{ part.content }}</span>
+          </template>
+        </li>
       </ul>
 
       <ol
-        v-if="block.type === 'ordered-list'"
+        v-else-if="block.type === 'ordered-list'"
         class="le-note-viewer__list body"
       >
         <li
           v-for="(item, itemIndex) in block.items"
           :key="itemIndex"
-          v-text="item"
-        />
+        >
+          <template
+            v-for="(part, partIndex) in item.parts"
+            :key="`${part.type}-${partIndex}`"
+          >
+            <a
+              v-if="part.type === 'link'"
+              :href="part.content"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ part.content }}
+            </a>
+            <span v-else>{{ part.content }}</span>
+          </template>
+        </li>
       </ol>
 
       <div
-        v-if="block.type === 'blockquote'"
+        v-else-if="block.type === 'blockquote'"
         class="le-note-viewer__blockquote body"
       >
         <p
-          v-for="(line, itemIndex) in block.lines"
-          :key="itemIndex"
+          v-for="(line, index) in block.lines"
+          :key="index"
           class="le-note-viewer__blockquote__line"
-          v-text="line"
-        />
+        >
+          {{ line }}
+        </p>
       </div>
 
       <hr
-        v-if="block.type === 'divider'"
+        v-else-if="block.type === 'divider'"
         class="le-note-viewer__divider"
       >
     </template>
@@ -76,6 +166,10 @@
     flex: 1;
     flex-direction: column;
     justify-content: center;
+
+    & a {
+      color: var(--foreground-accent-base);
+    }
 
     &__title {
       margin: 0 0 var(--spacing-static-s);

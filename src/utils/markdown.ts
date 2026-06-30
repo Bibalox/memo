@@ -1,110 +1,153 @@
-export const parseMarkdown = (markdown: string) => {
+import type { TextBlock, InlineText } from "@types"
+
+export const parseMarkdown = (markdown: string): TextBlock[] => {
   const lines = markdown.split('\n')
-  const result = []
+  const result: TextBlock[] = []
   let i = 0
 
   while (i < lines.length) {
     const line = lines[i] ?? ''
 
-    // Skip empty lines
     if (line.trim() === '') {
       i++
       continue
     }
 
-    // Title: starts with single '#' (not '##')
     if (line.startsWith('# ')) {
-      result.push({ type: 'title', content: line.slice(2) })
+      result.push({
+        type: 'title',
+        content: line.slice(2),
+      })
       i++
       continue
     }
 
-    // Divider: '---' or '***'
     if (/^(---|\*\*\*)$/.test(line.trim())) {
       result.push({ type: 'divider' })
       i++
       continue
     }
 
-    // List: consecutive lines starting with '- '
+    // unordered list
     if (line.startsWith('- ')) {
-      const items = []
+      const items: { raw: string; parts: InlineText[] }[] = []
+
       while (i < lines.length) {
-        const line = lines[i]
+        const l = lines[i]
+        if (!l || !l.startsWith('- ')) break
 
-        if (line === undefined || !line.startsWith('- ')) break
+        const raw = l.slice(2)
 
-        items.push(line.slice(2))
+        items.push({
+          raw,
+          parts: parseInline(raw),
+        })
+
         i++
       }
-      result.push({ type: 'unordered-list', items })
+
+      result.push({
+        type: 'unordered-list',
+        items,
+      })
+
       continue
     }
 
-    // Ordered list: consecutive lines starting with a number followed by '. '
+    // ordered list
     if (/^\d+\. /.test(line)) {
-      const items = []
+      const items: { raw: string; parts: InlineText[] }[] = []
+
       while (i < lines.length) {
-        const line = lines[i]
-        if (line === undefined || !/^\d+\. /.test(line)) break
-        items.push(line.replace(/^\d+\. /, ''))
+        const l = lines[i]
+        if (!l || !/^\d+\. /.test(l)) break
+
+        const raw = l.replace(/^\d+\. /, '')
+
+        items.push({
+          raw,
+          parts: parseInline(raw),
+        })
+
         i++
       }
-      result.push({ type: 'ordered-list', items })
+
+      result.push({
+        type: 'ordered-list',
+        items,
+      })
+
       continue
     }
 
-    // Blockquote: consecutive lines starting with '> '
+    // blockquote
     if (line.startsWith('> ')) {
-      const items = []
+      const linesBlock: string[] = []
+
       while (i < lines.length) {
-        const line = lines[i]
+        const l = lines[i]
+        if (!l || !l.startsWith('> ')) break
 
-        if (line === undefined || !line.startsWith('> ')) break
-
-        items.push(line.slice(2))
+        linesBlock.push(l.slice(2))
         i++
       }
-      result.push({ type: 'blockquote', lines: items })
+
+      result.push({
+        type: 'blockquote',
+        lines: linesBlock,
+      })
+
       continue
     }
 
-    // Single line = one paragraph (empty lines are now separators, not consumed)
-    result.push({ type: 'paragraph', content: line })
+    // paragraph (NOW includes inline parsing)
+    result.push({
+      type: 'paragraph',
+      content: line,
+      parts: parseInline(line),
+    })
+
     i++
   }
 
   return result
 }
 
-export const parseInline = (text: string) => {
+export const parseInline = (text: string): InlineText[] => {
   const regex = /(https?:\/\/\S+)/g
 
-  return text
-    .split(regex)
-    .filter(Boolean)
-    .map((part) => {
-      if (!/^https?:\/\//.test(part)) {
-        return {
-          type: 'text',
-          content: part,
-        }
-      }
+  const parts = text.split(regex).filter(Boolean)
 
-      const match = part.match(/^(.*?)([),.;!?]+)?$/)!
+  const result: InlineText[] = []
 
-      return [
-        {
-          type: 'link',
-          content: match[1],
-        },
-        ...(match[2]
-          ? [{
-            type: 'text',
-            content: match[2],
-          }]
-          : []),
-      ]
+  for (const part of parts) {
+    if (!/^https?:\/\//.test(part)) {
+      result.push({
+        type: 'text' as const,
+        content: part,
+      })
+      continue
+    }
+
+    const match = part.match(/^(.*?)([),.;!?]+)?$/)
+
+    if (!match || !match[1]) continue
+
+    const url = match[1]
+    const trailing = match[2] ?? ''
+
+    result.push({
+      type: 'link' as const,
+      content: url,
     })
-    .flat()
+
+    if (trailing) {
+      result.push({
+        type: 'text' as const,
+        content: trailing,
+      })
+    }
+  }
+
+  return result
 }
