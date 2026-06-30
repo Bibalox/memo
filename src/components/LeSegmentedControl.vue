@@ -1,7 +1,10 @@
 <script setup lang="ts">
+  import { useStore } from '@store'
   import type { Mode } from '@types'
 
   import LeSegment from '@components/LeSegment.vue'
+
+  const store = useStore()
 
   defineProps<{
     currentMode: Mode
@@ -14,12 +17,19 @@
   <div
     class="le-segmented-control"
   >
-    <div :class="['le-segmented-control__selection-ring', `le-segmented-control__selection-ring--${currentMode}`]" />
+    <div
+      :class="[
+        'le-segmented-control__selection-ring',
+        `le-segmented-control__selection-ring--${currentMode}`,
+        { 'le-segmented-control__selection-ring--disabled' : !store.online }
+      ]"
+    />
     <le-segment
       v-for="(mode, key) in ['write', 'read']"
       :key="key"
       :selected="currentMode === mode"
       :mode="mode"
+      :disabled="mode === 'write' && !store.online"
       @click="$emit('clickOnSegment', mode)"
     />
   </div>
@@ -52,6 +62,10 @@
 
       &--read {
         transform: translateX(calc(64px + var(--spacing-static-xs) + var(--stroke-width)));
+      }
+
+      &--disabled {
+        display: none;
       }
     }
   }

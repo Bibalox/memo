@@ -4,11 +4,15 @@
   defineProps<{
     selected: boolean
     mode: Mode
+    disabled?: boolean
   }>()
 </script>
 
 <template>
-  <button :class="['le-segment', {'le-segment--selected': selected}]">
+  <button
+    :class="['le-segment', {'le-segment--selected': selected}]"
+    :disabled="disabled"
+  >
     <svg class="le-segment__icon">
       <use :href="`#${mode}`" />
     </svg>
@@ -50,6 +54,14 @@
 
     &:focus-visible {
       border-color: var(--foreground-accent-base);
+    }
+
+    &:disabled {
+      background-color: transparent;
+      border-color: transparent;
+      cursor: not-allowed;
+      fill: var(--foreground-neutral-base);
+      opacity: .3;
     }
   }
 </style>

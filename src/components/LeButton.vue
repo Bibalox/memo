@@ -3,6 +3,7 @@
     label?: string
     icon?: string
     type: 'icon' | 'text' | 'both'
+    disabled?: boolean
   }>()
 </script>
 
@@ -10,6 +11,7 @@
   <button
     :class="['le-button label', `le-button--${type}`]"
     tabindex="0"
+    :disabled="disabled"
   >
     <svg
       v-if="type === 'icon' || type === 'both'"
@@ -90,6 +92,16 @@
 
     &:focus-visible {
       outline-color: var(--foreground-accent-base);
+    }
+
+    &:disabled {
+      background-color: var(--background-weak);
+      border-color: transparent;
+      color: var(--foreground-neutral-base);
+      cursor: not-allowed;
+      fill: var(--foreground-neutral-base);
+      opacity: .3;
+      transform: none;
     }
   }
 </style>

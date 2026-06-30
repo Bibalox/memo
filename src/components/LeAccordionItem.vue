@@ -1,10 +1,12 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import { useStore } from '@store'
 
   import LeButton from '@components/LeButton.vue'
 
   const router = useRouter()
+  const store = useStore()
 
   const props = defineProps<{
     lastUpdate?: number
@@ -34,7 +36,6 @@
     } else {
       return '--'
     }
-
   })
 
   const navigateTo = (path: string) => {
@@ -57,6 +58,7 @@
     <le-button
       type="icon"
       icon="write"
+      :disabled="!store.online"
       @click="navigateTo(`note/${noteId}/write`)"
     />
     <le-button

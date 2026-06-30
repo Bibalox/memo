@@ -103,6 +103,7 @@ export const useStore = defineStore("noteStore", () => {
     categories,
     notes,
     loaded,
+    online,
     fetchData,
     getNote,
     updateNote,

@@ -32,6 +32,7 @@
     v-show="store.loaded"
     type="text"
     label="Exporter les notes"
+    :disabled="!store.online"
     @click="exportNotes(store.categories, store.notes)"
   />
 </template>
