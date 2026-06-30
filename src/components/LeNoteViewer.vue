@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed } from 'vue'
-  import { parseMarkdown, parseInline } from '@utils/markdown'
+  import { parseMarkdown } from '@utils/markdown'
 
   const props = defineProps<{
     content?: string
@@ -24,25 +24,8 @@
       <p
         v-if="block.type === 'paragraph'"
         class="le-note-viewer__paragraph body"
-      >
-        <template
-          v-for="(part, index) in parseInline(block.content ?? '')"
-          :key="index"
-        >
-          <a
-            v-if="part.type === 'link'"
-            :href="part.content"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ part.content }}
-          </a>
-
-          <template v-else>
-            {{ part.content }}
-          </template>
-        </template>
-      </p>
+        v-text="block.content"
+      />
 
       <ul
         v-if="block.type === 'unordered-list'"
@@ -51,25 +34,8 @@
         <li
           v-for="(item, itemIndex) in block.items"
           :key="itemIndex"
-        >
-          <template
-            v-for="(part, partIndex) in parseInline(item)"
-            :key="partIndex"
-          >
-            <a
-              v-if="part.type === 'link'"
-              :href="part.content"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {{ part.content }}
-            </a>
-
-            <template v-else>
-              {{ part.content }}
-            </template>
-          </template>
-        </li>
+          v-text="item"
+        />
       </ul>
 
       <ol
@@ -79,25 +45,8 @@
         <li
           v-for="(item, itemIndex) in block.items"
           :key="itemIndex"
-        >
-          <template
-            v-for="(part, partIndex) in parseInline(item)"
-            :key="partIndex"
-          >
-            <a
-              v-if="part.type === 'link'"
-              :href="part.content"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {{ part.content }}
-            </a>
-
-            <template v-else>
-              {{ part.content }}
-            </template>
-          </template>
-        </li>
+          v-text="item"
+        />
       </ol>
 
       <div
@@ -127,10 +76,6 @@
     flex: 1;
     flex-direction: column;
     justify-content: center;
-
-    & a {
-      color: var(--foreground-accent-base);
-    }
 
     &__title {
       margin: 0 0 var(--spacing-static-s);
