@@ -18,14 +18,15 @@
   <le-accordion
     v-show="store.state.loaded"
     title="Favoris"
+    category="favorites"
     :notes="store.notes.filter((note: Note) => note.favorite)"
-    open
   />
   <le-accordion
     v-for="category in store.categories"
     v-show="store.state.loaded"
     :key="category.position"
     :title="category.name"
+    :category="category.id"
     :notes="store.notes.filter((note: Note) => note.category === category.id)"
   />
   <div class="home-page-toolbar">

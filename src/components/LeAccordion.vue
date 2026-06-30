@@ -1,20 +1,28 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { useStore } from '@store'
+  import type { Note } from '@types'
 
   import LeAccordionHeader from '@components/LeAccordionHeader.vue'
   import LeAccordionItem from '@components/LeAccordionItem.vue'
   import LeDivider from '@components/LeDivider.vue'
 
-  import type { Note } from '@types'
-
-  const props = defineProps<{
+  defineProps<{
     title: string
+    category: string
     notes: Note[]
-    open?: boolean
   }>()
 
-  const open = ref(props.open ?? false)
+  const store = useStore()
 
+  const manageClickOnHeader = (category: string) => {
+    const index = store.activeCategories.indexOf(category)
+
+    if (index > -1) {
+      store.activeCategories.splice(index, 1)
+    } else {
+      store.activeCategories.push(category)
+    }
+  }
 </script>
 
 <template>
@@ -22,11 +30,10 @@
     <header class="le-accordion__header">
       <le-accordion-header
         :label="title"
-        :open="open"
-        @click="() => open = !open"
+        @click="manageClickOnHeader(category)"
       />
     </header>
-    <div :class="['le-accordion__body', { 'le-accordion__body--open': open }]">
+    <div :class="['le-accordion__body', { 'le-accordion__body--open': store.activeCategories.includes(category) }]">
       <div class="le-accordion__body-inner">
         <template
           v-for="(note, index) in notes"
@@ -59,7 +66,7 @@
     }
 
     &__body {
-        display: grid; 
+        display: grid;
         grid-template-rows: 0fr;
         transition: visibility 250ms ease, grid-template-rows 250ms ease;
         visibility: hidden;

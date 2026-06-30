@@ -17,6 +17,7 @@ export const useStore = defineStore("noteStore", () => {
 
   const categories = ref<Category[]>([])
   const notes = ref<Note[]>([])
+  const activeCategories = ref(['favorites'])
   const state = reactive({
     connected: false,
     loaded: false,
@@ -149,6 +150,7 @@ export const useStore = defineStore("noteStore", () => {
   return {
     state,
     categories,
+    activeCategories,
     notes,
     login,
     logout,
