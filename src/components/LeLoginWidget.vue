@@ -8,12 +8,17 @@
 
   const login = ref('')
   const password = ref('')
+  const errorMessage = ref()
 
   const store = useStore()
 
   const submit = async () => {
-    await store.login(login.value, password.value)
-    if (!store.state.connected) password.value = ''
+    try {
+      await store.login(login.value, password.value)
+    } catch {
+      password.value = ''
+      errorMessage.value = 'Identifiant ou mot de passe incorrect'
+    }
   }
 </script>
 
@@ -44,6 +49,13 @@
             label="Mot de passe"
             type="password"
           />
+          <template v-if="errorMessage">
+            <le-divider />
+            <span
+              class="le-login-widget__error-message subheadline"
+              v-text="errorMessage"
+            />
+          </template>
         </div>
         <le-button
           type="text"
@@ -112,6 +124,12 @@
       gap: var(--spacing-static-xxs);
       padding: var(--spacing-static-s);
       width: 100%;
+    }
+
+    &__error-message {
+      color: var(--foreground-error-base);
+      display: flex;
+      padding: var(--spacing-static-m) var(--spacing-static-l);
     }
 
     @media (max-width: 800px) {
