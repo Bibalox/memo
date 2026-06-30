@@ -1,7 +1,20 @@
 <script setup lang="ts">
+  import { ref } from 'vue'
+  import { useStore } from '@store'
+
   import LeInput from './LeInput.vue'
   import LeDivider from './LeDivider.vue'
   import LeButton from './LeButton.vue'
+
+  const login = ref('')
+  const password = ref('')
+
+  const store = useStore()
+
+  const submit = async () => {
+    await store.login(login.value, password.value)
+    if (!store.state.connected) password.value = ''
+  }
 </script>
 
 <template>
@@ -13,16 +26,21 @@
       </svg>
     </div>
     <div class="le-login-widget__main">
-      <form class="le-login-widget__form">
+      <form
+        class="le-login-widget__form"
+        @submit.prevent="submit"
+      >
         <div class="le-login-widget__card">
           <le-input
             id="login"
+            v-model="login"
             label="Identifiant"
             type="email"
           />
           <le-divider />
           <le-input
             id="password"
+            v-model="password"
             label="Mot de passe"
             type="password"
           />
@@ -30,6 +48,7 @@
         <le-button
           type="text"
           label="Continuer"
+          :disabled="login === '' && password === ''"
         />
       </form>
     </div>

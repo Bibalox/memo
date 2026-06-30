@@ -2,6 +2,8 @@
 // IMPORTANT NOTE!
 
 // You have to create a .env file at the root of this project with the following variables:
+// VITE_AUTH_USER=myUser
+// VITE_AUTH_PASSWORD=myPassword
 // VITE_SUPABASE_URL=myURL
 // VITE_SUPABASE_PUBLISHABLE_KEY=myKey
 
@@ -15,14 +17,23 @@ import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
 
+  const categories = ref<Category[]>([])
+  const notes = ref<Note[]>([])
   const state = reactive({
-    connected: false,
+    connected: localStorage.getItem('connected') === 'true',
     loaded: false,
     online: navigator.onLine
   })
 
-  const categories = ref<Category[]>([])
-  const notes = ref<Note[]>([])
+
+  const login = async (user: string, password: string) => {
+    const authUser = import.meta.env.VITE_AUTH_USER
+    const authPassword = import.meta.env.VITE_AUTH_PASSWORD
+
+    state.connected = (user === authUser && password === authPassword)
+    if (state.connected) localStorage.setItem('connected', 'true')
+  }
+
 
   const fetchCategories = async () => {
     if (state.online) {
@@ -78,6 +89,7 @@ export const useStore = defineStore("noteStore", () => {
     return notes.value.find(note => note.id.toString() === id)
   }
 
+
   const updateNote = async (id: string) => {
     const note = getNote(id)
 
@@ -98,6 +110,7 @@ export const useStore = defineStore("noteStore", () => {
     if (error) throw error
   }
 
+
   const watchOnlineStatus = () => {
     window.addEventListener('online', () => {
       state.online = true
@@ -112,6 +125,7 @@ export const useStore = defineStore("noteStore", () => {
     state,
     categories,
     notes,
+    login,
     fetchData,
     getNote,
     updateNote,
