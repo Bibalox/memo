@@ -54,6 +54,10 @@ export default defineConfig({
       workbox: {
         navigateFallback: '/index.html',
 
+        globPatterns: [
+          '**/*.{js,css,html,ico,png,svg,woff,woff2,otf,ttf}',
+        ],
+
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/.*/,
@@ -68,9 +72,13 @@ export default defineConfig({
     }),
     vueDevTools(),
   ],
+  build: {
+    outDir: 'dist'
+  },
   base: '/',
   resolve: {
     alias: {
+      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@pages': fileURLToPath(new URL('./src/pages', import.meta.url)),
       '@store': fileURLToPath(new URL('./src/store.ts', import.meta.url)),
