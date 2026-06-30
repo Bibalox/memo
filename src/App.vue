@@ -1,14 +1,19 @@
 <script setup lang="ts">
-  import { onMounted, watch } from 'vue'
+  import { onMounted, ref, watch } from 'vue'
   import { useRoute } from 'vue-router'
+  import { useStore } from '@store'
+
+  import LeLoginWidget from '@components/LeLoginWidget.vue'
 
   const route = useRoute()
-  let mainContainer: HTMLElement | null
+  const store = useStore()
 
-  onMounted(() => { mainContainer = document.querySelector('#app') })
+  const mainContainer = ref()
+
+  onMounted(() => { mainContainer.value = document.querySelector('#app') })
 
   watch(route, () => {
-    const classList = mainContainer?.classList
+    const classList = mainContainer.value?.classList
     if (route.meta.withToolbar) {
       classList?.add('app__main--with-toolbar')
      } else {
@@ -21,8 +26,11 @@
   <main
     id="main"
     class="app__main"
+    :class="{ 'app__main--full-screen': !store.state.connected }"
   >
-    <router-view />
+    <router-view v-if="store.state.connected" />
+
+    <le-login-widget v-else />
   </main>
 </template>
 
@@ -65,6 +73,10 @@
 
       &--with-toolbar {
         padding-top: calc(var(--spacing-responsive-m) * 2 + 48px);
+      }
+
+      &--full-screen {
+        max-width: unset;
       }
     }
   }

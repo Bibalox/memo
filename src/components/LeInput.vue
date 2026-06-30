@@ -5,7 +5,7 @@
     type: 'email' | 'password'
   }>()
 
-  const model = defineModel<String>()
+  const model = defineModel<string>()
 </script>
 
 <template>
@@ -37,23 +37,23 @@
     transition: all 200ms ease-in-out;
     -webkit-tap-highlight-color: transparent;
 
-      &__label {
-        color: var(--foreground-neutral-weak);
-        cursor: pointer;
-        transition: color 200ms ease-in-out;
-      }
+    &__label {
+      color: var(--foreground-neutral-weak);
+      cursor: pointer;
+      transition: color 200ms ease-in-out;
+    }
 
-      &__input {
-        background-color: transparent;
-        border: none;
-        border-radius: 0;
-        color: inherit;
-        cursor: text;
-        outline: none;
-        padding: 0;
-        transition: color 200ms ease-in-out;
-      }
-    
+    &__input {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      color: inherit;
+      cursor: text;
+      outline: none;
+      padding: 0;
+      transition: color 200ms ease-in-out;
+    }
+
     &:hover {
       background-color: var(--foreground-accent-weak);
       color: var(--foreground-accent-strong);
