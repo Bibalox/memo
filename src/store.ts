@@ -87,45 +87,38 @@ export const useStore = defineStore("noteStore", () => {
 
 
   const fetchCategories = async () => {
-    if (state.online) {
-      const { data } = await (
-        supabase
-          .from('categories')
-          .select('*')
-          .order('position')
-      )
-      if (!data) return
+    const local = await getLocalCategories()
+    categories.value = local.sort((a, b) => a.position - b.position)
 
-      categories.value = data
+    if (!state.online) return
 
-      await saveLocalCategories(data as Category[])
-    } else {
-      const array = await getLocalCategories()
-      categories.value = array.sort((a, b) => {
-        return (a.position > b.position) ? 1 : -1
-      })
-    }
+    const { data } = await supabase
+      .from('categories')
+      .select('*')
+      .order('position')
+
+    if (!data) return
+
+    categories.value = data
+    await saveLocalCategories(data as Category[])
   }
 
 
   const fetchNotes = async () => {
-    if (state.online) {
-      const { data } = await supabase
-        .from('notes')
-        .select('*')
-        .order('name')
+    const local = await getLocalNotes()
+    notes.value = local.sort((a, b) => a.name.localeCompare(b.name))
 
-      if (!data) return
+    if (!state.online) return
 
-      notes.value = data
+    const { data } = await supabase
+      .from('notes')
+      .select('*')
+      .order('name')
 
-      await saveLocalNotes(data as Note[])
-    } else {
-      const array = await getLocalNotes()
-      notes.value = array.sort((a, b) => {
-        return (a.name > b.name) ? 1 : -1
-      })
-    }
+    if (!data) return
+
+    notes.value = data
+    await saveLocalNotes(data as Note[])
   }
 
 
