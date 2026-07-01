@@ -19,6 +19,7 @@ export const useStore = defineStore("noteStore", () => {
   const notes = ref<Note[]>([])
   const activeCategories = ref(['favorites'])
   const state = reactive({
+    initialized: false,
     connected: false,
     loaded: false,
     online: navigator.onLine

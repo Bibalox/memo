@@ -24,12 +24,12 @@ app
 
 const store = useStore()
 
-const init = async () => {
-  preventZoomOnDoubleTap()
-  setTheme()
-  store.watchOnlineStatus()
-  store.initializeAuth()
-  await loadAssets()
-}
+// Init functions
+setTheme()
+preventZoomOnDoubleTap()
+store.watchOnlineStatus()
+await store.initializeAuth()
+await store.fetchData()
+await loadAssets()
 
-init()
+store.state.initialized = true

@@ -28,9 +28,15 @@
     class="app__main"
     :class="{ 'app__main--full-screen': !store.state.connected }"
   >
-    <router-view v-if="store.state.connected" />
-
-    <le-login-widget v-else />
+    <template v-if="store.state.initialized">
+      <router-view v-if="store.state.connected" />
+      <le-login-widget v-else />
+    </template>
+    <span
+      v-else
+      class="app__loader label"
+      v-text="'Chargement'"
+    />
   </main>
 </template>
 
@@ -78,6 +84,14 @@
       &--full-screen {
         max-width: unset;
       }
+    }
+
+    &__loader {
+      align-items: center;
+      display: flex;
+      color: var(--foreground-neutral-base);
+      height: 100%;
+      justify-content: center;
     }
   }
 </style>
