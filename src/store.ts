@@ -85,6 +85,7 @@ export const useStore = defineStore("noteStore", () => {
     })
   }
 
+  const isEqual = (a: unknown[], b: unknown[]) => JSON.stringify(a) === JSON.stringify(b)
 
   const fetchCategories = async () => {
     const local = await getLocalCategories()
@@ -99,8 +100,10 @@ export const useStore = defineStore("noteStore", () => {
 
     if (!data) return
 
-    categories.value = data
-    await saveLocalCategories(data as Category[])
+    if (!isEqual(data, categories.value)) {
+      categories.value = data
+      await saveLocalCategories(data as Category[])
+    }
   }
 
 
@@ -117,8 +120,10 @@ export const useStore = defineStore("noteStore", () => {
 
     if (!data) return
 
-    notes.value = data
-    await saveLocalNotes(data as Note[])
+    if (!isEqual(data, notes.value)) {
+      notes.value = data
+      await saveLocalNotes(data as Note[])
+    }
   }
 
 
