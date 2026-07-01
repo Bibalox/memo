@@ -5,10 +5,6 @@ import router from './router.ts'
 import { createPinia } from 'pinia'
 import { registerSW } from 'virtual:pwa-register'
 
-import { useStore } from '@store'
-import { loadAssets } from '@utils/assets.ts'
-import { setTheme } from '@utils/theme.ts'
-import { preventZoomOnDoubleTap } from '@utils/touch.ts'
 
 registerSW({
   immediate: true,
@@ -21,15 +17,3 @@ app
   .use(router)
   .use(pinia)
   .mount('#app')
-
-const store = useStore()
-
-// Init functions
-setTheme()
-preventZoomOnDoubleTap()
-store.watchOnlineStatus()
-await store.initializeAuth()
-await store.fetchData()
-await loadAssets()
-
-store.state.initialized = true

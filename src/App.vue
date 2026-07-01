@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, ref, watch } from 'vue'
+  import { onMounted } from 'vue'
   import { useRoute } from 'vue-router'
   import { useStore } from '@store'
 
@@ -8,17 +8,8 @@
   const route = useRoute()
   const store = useStore()
 
-  const mainContainer = ref()
-
-  onMounted(() => { mainContainer.value = document.querySelector('#app') })
-
-  watch(route, () => {
-    const classList = mainContainer.value?.classList
-    if (route.meta.withToolbar) {
-      classList?.add('app__main--with-toolbar')
-     } else {
-      classList?.remove('app__main--with-toolbar')
-     }
+  onMounted(async () => {
+    await store.init()
   })
 </script>
 
@@ -26,16 +17,26 @@
   <main
     id="main"
     class="app__main"
-    :class="{ 'app__main--full-screen': !store.state.connected }"
+    :class="{
+      'app__main--full-screen': !store.state.connected,
+      'app__main--with-toolbar': route.meta.withToolbar,
+    }"
   >
-    <template v-if="store.state.initialized">
-      <router-view v-if="store.state.connected" />
-      <le-login-widget v-else />
-    </template>
     <span
-      v-else
+      v-if="!store.state.initialized"
       class="app__loader label"
       v-text="'Chargement'"
+    />
+    <le-login-widget
+      v-else-if="!store.state.connected"
+    />
+    <span
+      v-else-if="!store.state.loaded"
+      class="app__loader label"
+      v-text="'Chargement'"
+    />
+    <router-view
+      v-else
     />
   </main>
 </template>

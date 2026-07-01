@@ -11,6 +11,10 @@ import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { getLocalCategories, getLocalNotes, saveLocalCategories, saveLocalNotes } from '@utils/indexed-db'
 import { supabase } from '@utils/supabase'
+import { loadAssets } from '@utils/assets.ts'
+import { setTheme } from '@utils/theme.ts'
+import { preventZoomOnDoubleTap } from '@utils/touch.ts'
+
 import type { Note, Category } from '@types'
 
 export const useStore = defineStore("noteStore", () => {
@@ -25,6 +29,24 @@ export const useStore = defineStore("noteStore", () => {
     online: navigator.onLine
   })
 
+  const init = async () => {
+    try {
+      setTheme()
+      preventZoomOnDoubleTap()
+
+      await loadAssets()
+      await initializeAuth()
+
+      if (state.connected) {
+        await fetchData()
+      }
+
+      watchOnlineStatus()
+    } finally {
+      state.initialized = true
+    }
+  }
+
 
   const login = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -34,6 +56,8 @@ export const useStore = defineStore("noteStore", () => {
 
     if (error) {
       throw error
+    } else {
+      await fetchData()
     }
   }
 
@@ -108,6 +132,7 @@ export const useStore = defineStore("noteStore", () => {
   const fetchData = async () => {
     await fetchCategories()
     await fetchNotes()
+
     state.loaded = true
   }
 
@@ -149,6 +174,7 @@ export const useStore = defineStore("noteStore", () => {
   }
 
   return {
+    init,
     state,
     categories,
     activeCategories,
