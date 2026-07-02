@@ -30,6 +30,7 @@
     <header class="le-accordion__header">
       <le-accordion-header
         :label="title"
+        :open="store.activeCategories.includes(category)"
         @click="manageClickOnHeader(category)"
       />
     </header>
