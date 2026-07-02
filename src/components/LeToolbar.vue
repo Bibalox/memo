@@ -42,6 +42,7 @@
 
 <style lang="scss">
   .le-toolbar {
+   background: linear-gradient(var(--background-base) 0%, transparent 100%);;
     display: flex;
     justify-content: center;
     left: 0;

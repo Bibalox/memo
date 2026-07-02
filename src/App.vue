@@ -79,7 +79,7 @@
       width: 100%;
 
       &--with-toolbar {
-        padding-top: calc(var(--spacing-responsive-m) * 2 + 48px);
+        padding-top: calc(var(--spacing-responsive-m) + 48px);
       }
 
       &--full-screen {
