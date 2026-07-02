@@ -12,8 +12,7 @@ import { defineStore } from 'pinia'
 import { getLocalCategories, getLocalNotes, saveLocalCategories, saveLocalNotes } from '@utils/indexed-db'
 import { supabase } from '@utils/supabase'
 import { loadAssets } from '@utils/assets.ts'
-import { setTheme } from '@utils/theme.ts'
-import { preventZoomOnDoubleTap } from '@utils/touch.ts'
+import { preventZoomOnDoubleTap, getTheme } from '@utils/device'
 
 import type { Note, Category } from '@types'
 
@@ -31,7 +30,7 @@ export const useStore = defineStore("noteStore", () => {
 
   const init = async () => {
     try {
-      setTheme()
+      getTheme()
       preventZoomOnDoubleTap()
 
       await loadAssets()

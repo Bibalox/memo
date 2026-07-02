@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { reactive, toRef, onMounted, computed, watch, onBeforeUnmount } from 'vue'
+  import { reactive, toRef, computed, watch, onMounted, onBeforeUnmount } from 'vue'
   import { useRoute } from 'vue-router'
   import { useStore } from '@store'
+  import { requestWakeLock, releaseWakeLock, handleVisibility } from '@utils/device'
   import type { Mode } from '@types'
 
   import LeToolbar from '@components/LeToolbar.vue'
@@ -39,8 +40,19 @@
   }
 
   watch(() => note.value?.content, () => syncNote())
-  onMounted(async () => { if (!store.state.loaded) await store.fetchData() })
-  onBeforeUnmount(() => { if (timeout) clearTimeout(timeout) })
+
+  onMounted(async () => {
+    if (!store.state.loaded) await store.fetchData()
+    await requestWakeLock()
+    document.addEventListener('visibilitychange', handleVisibility)
+  })
+
+  onBeforeUnmount(async () => {
+    if (timeout) clearTimeout(timeout)
+
+    document.removeEventListener('visibilitychange', handleVisibility)
+    await releaseWakeLock()
+  })
 </script>
 
 <template>
