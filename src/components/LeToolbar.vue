@@ -25,27 +25,36 @@
 
 <template>
   <div class="le-toolbar">
-    <le-button
-      type="both"
-      label="Retour"
-      icon="arrow-left"
-      @click="manageClick"
-    />
-    <le-segmented-control
-      :current-mode="mode"
-      @click-on-segment="(newMode) => $emit('modeUpdate', newMode)"
-    />
+    <div class="le-toolbar__inner">
+      <le-button
+        type="both"
+        label="Retour"
+        icon="arrow-left"
+        @click="manageClick"
+      />
+      <le-segmented-control
+        :current-mode="mode"
+        @click-on-segment="(newMode) => $emit('modeUpdate', newMode)"
+      />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
   .le-toolbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    left: 0;
     padding: var(--spacing-responsive-m);
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
+
+    &__inner {
+      display: flex;
+      justify-content: space-between;
+      max-width: 640px;
+      width: 100%;
+    }
   }
 </style>
