@@ -68,7 +68,7 @@
     display: flex;
     flex: 1;
     justify-content: center;
-    padding: calc(env(safe-area-inset-top) + var(--spacing-responsive-m)) var(--spacing-responsive-m) calc(env(safe-area-inset-bottom) + var(--spacing-responsive-m));
+    padding: var(--spacing-responsive-m) var(--spacing-responsive-m) calc(env(safe-area-inset-bottom) + var(--spacing-responsive-m));
     width: 100vw;
 
     &__main {
