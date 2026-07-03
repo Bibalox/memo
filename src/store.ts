@@ -29,6 +29,8 @@ export const useStore = defineStore("noteStore", () => {
   })
 
   const init = async () => {
+    localStorage.setItem('memo-storage-test', 'alive')
+
     try {
       getTheme()
       preventZoomOnDoubleTap()

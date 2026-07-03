@@ -8,9 +8,7 @@
   const route = useRoute()
   const store = useStore()
 
-  onMounted(async () => {
-    await store.init()
-  })
+  onMounted(async () => await store.init())
 </script>
 
 <template>
