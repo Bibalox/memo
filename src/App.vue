@@ -20,6 +20,12 @@
       'app__main--with-toolbar': route.meta.withToolbar,
     }"
   >
+    <div
+      class="app__top-gradient"
+      :class="{
+        'app__top-gradient--with-toolbar': route.meta.withToolbar,
+      }"
+    />
     <span
       v-if="!store.state.initialized"
       class="app__loader label"
@@ -82,6 +88,19 @@
 
       &--full-screen {
         max-width: unset;
+      }
+    }
+
+    &__top-gradient {
+      background: linear-gradient(var(--background-base) 0%, transparent 100%);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--spacing-responsive-m);
+
+      &--with-toolbar {
+        padding-top: calc(var(--spacing-responsive-m) + 48px);
       }
     }
 
