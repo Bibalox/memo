@@ -91,16 +91,18 @@
       }
     }
 
-    &__top-gradient {
-      background: linear-gradient(var(--background-base) 0%, transparent 100%);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: var(--spacing-responsive-m);
+    @media (min-device-width: 600px) {
+      &__top-gradient {
+        background: linear-gradient(var(--background-base) 0%, transparent 100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--spacing-responsive-m);
 
-      &--with-toolbar {
-        padding-top: calc(var(--spacing-responsive-m) + 48px);
+        &--with-toolbar {
+          padding-top: calc(var(--spacing-responsive-m) + 48px);
+        }
       }
     }
 
