@@ -84,6 +84,12 @@
           >
             {{ part.content }}
           </a>
+          <strong v-else-if="part.type === 'strong'">
+            {{ part.content }}
+          </strong>
+          <em v-else-if="part.type === 'em'">
+            {{ part.content }}
+          </em>
           <span v-else>{{ part.content }}</span>
         </template>
       </p>
@@ -108,6 +114,12 @@
             >
               {{ part.content }}
             </a>
+            <strong v-else-if="part.type === 'strong'">
+              {{ part.content }}
+            </strong>
+            <em v-else-if="part.type === 'em'">
+              {{ part.content }}
+            </em>
             <span v-else>{{ part.content }}</span>
           </template>
         </li>
@@ -133,6 +145,12 @@
             >
               {{ part.content }}
             </a>
+            <strong v-else-if="part.type === 'strong'">
+              {{ part.content }}
+            </strong>
+            <em v-else-if="part.type === 'em'">
+              {{ part.content }}
+            </em>
             <span v-else>{{ part.content }}</span>
           </template>
         </li>

@@ -50,3 +50,5 @@ export type TextBlock =
 export type InlineText =
   | { type: 'text'; content: string }
   | { type: 'link'; content: string }
+  | { type: 'strong'; content: string }
+  | { type: 'em'; content: string }

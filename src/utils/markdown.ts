@@ -100,7 +100,7 @@ export const parseMarkdown = (markdown: string): TextBlock[] => {
       continue
     }
 
-    // paragraph (NOW includes inline parsing)
+    // paragraph
     result.push({
       type: 'paragraph',
       content: line,
@@ -114,39 +114,63 @@ export const parseMarkdown = (markdown: string): TextBlock[] => {
 }
 
 export const parseInline = (text: string): InlineText[] => {
-  const regex = /(https?:\/\/\S+)/g
-
-  const parts = text.split(regex).filter(Boolean)
+  const regex = /(https?:\/\/\S+)|\*\*([^*]+)\*\*|\*([^*]+)\*/g
 
   const result: InlineText[] = []
+  let lastIndex = 0
 
-  for (const part of parts) {
-    if (!/^https?:\/\//.test(part)) {
+  for (const match of text.matchAll(regex)) {
+    const index = match.index ?? 0
+
+    // Add text before the match
+    if (index > lastIndex) {
       result.push({
-        type: 'text' as const,
-        content: part,
+        type: 'text',
+        content: text.slice(lastIndex, index),
       })
-      continue
     }
-
-    const match = part.match(/^(.*?)([),.;!?]+)?$/)
-
-    if (!match || !match[1]) continue
 
     const url = match[1]
-    const trailing = match[2] ?? ''
+    const strong = match[2]
+    const italic = match[3]
 
-    result.push({
-      type: 'link' as const,
-      content: url,
-    })
+    if (url) {
+      const urlMatch = url.match(/^(.*?)([),.;!?]+)?$/)
 
-    if (trailing) {
+      if (urlMatch?.[1]) {
+        result.push({
+          type: 'link',
+          content: urlMatch[1],
+        })
+
+        if (urlMatch[2]) {
+          result.push({
+            type: 'text',
+            content: urlMatch[2],
+          })
+        }
+      }
+    } else if (strong) {
       result.push({
-        type: 'text' as const,
-        content: trailing,
+        type: 'strong',
+        content: strong,
+      })
+    } else if (italic) {
+      result.push({
+        type: 'em',
+        content: italic,
       })
     }
+
+    lastIndex = index + match[0].length
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    result.push({
+      type: 'text',
+      content: text.slice(lastIndex),
+    })
   }
 
   return result
