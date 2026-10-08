@@ -81,9 +81,8 @@
             :href="part.content"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            {{ part.content }}
-          </a>
+            v-text="'lien'"
+          />
           <strong v-else-if="part.type === 'strong'">
             {{ part.content }}
           </strong>
@@ -111,9 +110,8 @@
               :href="part.content"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              {{ part.content }}
-            </a>
+              v-text="'lien'"
+            />
             <strong v-else-if="part.type === 'strong'">
               {{ part.content }}
             </strong>
@@ -142,9 +140,8 @@
               :href="part.content"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              {{ part.content }}
-            </a>
+              v-text="'lien'"
+            />
             <strong v-else-if="part.type === 'strong'">
               {{ part.content }}
             </strong>
